@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Member Portal | Watch Out For Me</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #050505; color: white; font-family: sans-serif; }
+        .secure-glow { box-shadow: 0 0 40px rgba(34, 197, 94, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+
+    <div id="login-screen" class="max-w-md w-full space-y-8 bg-white/5 p-10 rounded-[40px] border border-white/10">
+        <div class="text-indigo-500 text-4xl mb-4 italic font-black">LOGIN</div>
+        <p class="text-gray-400 text-xs uppercase tracking-widest mb-6">Enter Activation Key</p>
+        
+        <input type="password" id="pass-input" placeholder="••••••••" 
+               class="w-full bg-black border border-white/20 p-4 rounded-xl text-center text-2xl tracking-widest focus:border-indigo-500 outline-none transition-all">
+        
+        <button onclick="checkPass()" 
+                class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl transition-all uppercase tracking-widest">
+            Verify Protocol
+        </button>
+        <p id="error-msg" class="text-red-500 text-xs mt-4 hidden italic font-bold">Invalid Activation Key</p>
+    </div>
+
+    <!-- THIS IS THE ACTUAL PROTECTED AREA -->
+    <div id="protected-content" class="hidden max-w-2xl w-full space-y-12">
+        <div class="space-y-2">
+            <h1 class="text-5xl font-black italic tracking-tighter uppercase leading-none">
+                PROTOCOL <span class="text-green-500">ACTIVE</span>
+            </h1>
+            <p class="text-xs text-gray-500 tracking-[0.4em] uppercase">Authenticated: Edward Porter Node 001</p>
+        </div>
+
+        <div class="bg-black border border-green-500/30 p-10 rounded-[40px] secure-glow text-left space-y-6">
+            <h2 class="text-green-500 font-black uppercase tracking-widest text-sm">Welcome to the Network</h2>
+            <p class="text-gray-300">Your AI Supervision Protocol is now running in the background. Your node is being synced with the peer-supervised grid.</p>
+            
+            <div class="p-4 bg-white/5 rounded-xl border border-white/5">
+                <p class="text-xs text-gray-500 uppercase font-bold mb-2">Next Step:</p>
+                <p class="text-sm">Keep this browser window open on your primary device to maintain supervisor connectivity.</p>
+            </div>
+
+            <button onclick="window.location.href='index.html'" class="text-gray-600 hover:text-white text-[10px] uppercase font-bold tracking-widest">Logout</button>
+        </div>
+    </div>
+
+    <script>
+        function checkPass() {
+            const input = document.getElementById('pass-input').value;
+            const error = document.getElementById('error-msg');
+            
+            // YOU CAN CHANGE THIS TO ANY PASSWORD YOU WANT
+            if (input === 'WATCHOUT99') {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('protected-content').classList.remove('hidden');
+            } else {
+                error.classList.remove('hidden');
+                setTimeout(() => error.classList.add('hidden'), 2000);
+            }
+        }
+    </script>
+</body>
+</html>
