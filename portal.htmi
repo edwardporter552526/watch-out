@@ -3,64 +3,126 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Member Portal | Watch Out For Me</title>
+    <title>SECURE ACCESS | WATCH OUT</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #050505; color: white; font-family: sans-serif; }
-        .secure-glow { box-shadow: 0 0 40px rgba(34, 197, 94, 0.2); }
+        body { background-color: #000000; color: #ffffff; font-family: sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .panic-glow { box-shadow: 0 0 50px rgba(239, 68, 68, 0.4); }
+        .panic-active { background: #ef4444 !important; box-shadow: 0 0 80px #ef4444 !important; animation: pulse 0.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+        .matrix-text { font-family: monospace; font-size: 10px; color: #3b82f6; opacity: 0.5; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+<body class="min-h-screen flex flex-col items-center justify-center p-6">
 
-    <div id="login-screen" class="max-w-md w-full space-y-8 bg-white/5 p-10 rounded-[40px] border border-white/10">
-        <div class="text-indigo-500 text-4xl mb-4 italic font-black">LOGIN</div>
-        <p class="text-gray-400 text-xs uppercase tracking-widest mb-6">Enter Activation Key</p>
+    <!-- LOGIN SCREEN -->
+    <div id="login-box" class="glass w-full max-w-sm p-10 rounded-[40px] space-y-8 transition-all duration-700">
+        <div class="text-center space-y-2">
+            <h1 class="text-2xl font-black italic text-blue-500 tracking-tighter">AUTHENTICATE</h1>
+            <p class="text-[10px] text-gray-500 uppercase tracking-widest text-center">Node Key Required</p>
+        </div>
         
-        <input type="password" id="pass-input" placeholder="••••••••" 
-               class="w-full bg-black border border-white/20 p-4 rounded-xl text-center text-2xl tracking-widest focus:border-indigo-500 outline-none transition-all">
+        <input type="password" id="shadow-key" placeholder="••••" 
+               class="w-full bg-white/5 border border-white/10 p-4 rounded-2xl text-center text-2xl tracking-[1em] focus:border-blue-500 outline-none transition-all text-white">
         
-        <button onclick="checkPass()" 
-                class="w-full py-4 bg-indigo-600 hover:bg-indigo-500 text-white font-black rounded-xl transition-all uppercase tracking-widest">
-            Verify Protocol
+        <button onclick="unlock()" class="w-full py-4 bg-white text-black font-black rounded-2xl uppercase tracking-widest hover:bg-gray-200 active:scale-95 transition-all">
+            Initiate Link
         </button>
-        <p id="error-msg" class="text-red-500 text-xs mt-4 hidden italic font-bold">Invalid Activation Key</p>
+        <p id="error" class="text-red-500 text-[10px] text-center hidden uppercase tracking-widest font-bold">Protocol Denied</p>
     </div>
 
-    <!-- THIS IS THE ACTUAL PROTECTED AREA -->
-    <div id="protected-content" class="hidden max-w-2xl w-full space-y-12">
-        <div class="space-y-2">
-            <h1 class="text-5xl font-black italic tracking-tighter uppercase leading-none">
-                PROTOCOL <span class="text-green-500">ACTIVE</span>
-            </h1>
-            <p class="text-xs text-gray-500 tracking-[0.4em] uppercase">Authenticated: Edward Porter Node 001</p>
+    <!-- PROTECTED DASHBOARD -->
+    <div id="dashboard" class="hidden w-full max-w-2xl space-y-8">
+        <!-- Status Bar -->
+        <div class="flex items-center justify-between w-full px-4">
+            <div class="flex items-center space-x-3">
+                <div id="status-light" class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_#22c55e]"></div>
+                <h2 id="status-text" class="text-[10px] font-bold uppercase tracking-[0.4em] text-green-500">Node Sync: Online</h2>
+            </div>
+            <button onclick="location.reload()" class="text-gray-500 hover:text-white text-[10px] uppercase font-bold tracking-widest transition-colors">Disconnect</button>
         </div>
 
-        <div class="bg-black border border-green-500/30 p-10 rounded-[40px] secure-glow text-left space-y-6">
-            <h2 class="text-green-500 font-black uppercase tracking-widest text-sm">Welcome to the Network</h2>
-            <p class="text-gray-300">Your AI Supervision Protocol is now running in the background. Your node is being synced with the peer-supervised grid.</p>
-            
-            <div class="p-4 bg-white/5 rounded-xl border border-white/5">
-                <p class="text-xs text-gray-500 uppercase font-bold mb-2">Next Step:</p>
-                <p class="text-sm">Keep this browser window open on your primary device to maintain supervisor connectivity.</p>
+        <div class="glass p-8 md:p-12 rounded-[50px] space-y-10 relative overflow-hidden">
+            <!-- Header -->
+            <div class="border-b border-white/10 pb-6 flex justify-between items-end">
+                <div>
+                    <h1 class="text-4xl font-black italic tracking-tighter uppercase">SUPERVISOR</h1>
+                    <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-widest">Operator: Edward Porter</p>
+                </div>
+                <div class="text-right">
+                    <p class="matrix-text">ENCR_SHA256</p>
+                    <p class="matrix-text">P2P_STABLE</p>
+                </div>
             </div>
 
-            <button onclick="window.location.href='index.html'" class="text-gray-600 hover:text-white text-[10px] uppercase font-bold tracking-widest">Logout</button>
+            <!-- Stats Grid -->
+            <div class="grid grid-cols-2 gap-4">
+                <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-center">
+                    <p class="text-[9px] text-blue-500 font-bold uppercase mb-2 tracking-widest">AI Suppression</p>
+                    <p class="text-3xl font-black">99.8%</p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-3xl border border-white/5 text-center">
+                    <p class="text-[9px] text-gray-500 font-bold uppercase mb-2 tracking-widest">Uptime</p>
+                    <p class="text-3xl font-black italic">14.2h</p>
+                </div>
+            </div>
+
+            <!-- THE PANIC BUTTON -->
+            <div class="pt-4 space-y-4">
+                <p class="text-[10px] text-gray-500 uppercase tracking-[0.3em] font-bold text-center">Emergency Protocol</p>
+                <button id="panic-btn" onclick="triggerPanic()" 
+                        class="w-full py-10 bg-red-900/20 border-2 border-red-500/50 rounded-[30px] text-red-500 font-black text-2xl uppercase tracking-[0.2em] transition-all hover:bg-red-600 hover:text-white hover:border-red-600 panic-glow active:scale-95">
+                    PANIC RESET
+                </button>
+                <p class="text-[9px] text-gray-600 text-center uppercase tracking-widest italic">Immediate Severing of all AI Child-Nodes</p>
+            </div>
+
+            <!-- Admin Support -->
+            <div class="pt-6 border-t border-white/10">
+                <a href="mailto:edwardporter2526@gmail.com?subject=Technical Assistance Required" 
+                   class="block text-center text-[10px] text-blue-400 hover:text-blue-300 font-bold uppercase tracking-[0.2em]">
+                   Contact Protocol Admin
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
-        function checkPass() {
-            const input = document.getElementById('pass-input').value;
-            const error = document.getElementById('error-msg');
-            
-            // YOU CAN CHANGE THIS TO ANY PASSWORD YOU WANT
-            if (input === 'WATCHOUT99') {
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('protected-content').classList.remove('hidden');
+        function unlock() {
+            const val = document.getElementById('shadow-key').value;
+            // Key is STEALTH
+            if (val.toUpperCase() === 'STEALTH') {
+                document.getElementById('login-box').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('login-box').classList.add('hidden');
+                    document.getElementById('dashboard').classList.remove('hidden');
+                }, 500);
             } else {
-                error.classList.remove('hidden');
-                setTimeout(() => error.classList.add('hidden'), 2000);
+                const err = document.getElementById('error');
+                err.classList.remove('hidden');
+                setTimeout(() => err.classList.add('hidden'), 2000);
             }
+        }
+
+        function triggerPanic() {
+            const btn = document.getElementById('panic-btn');
+            const light = document.getElementById('status-light');
+            const status = document.getElementById('status-text');
+            
+            btn.innerHTML = "DISCONNECTING...";
+            btn.classList.add('panic-active');
+            light.classList.replace('bg-green-500', 'bg-red-500');
+            light.style.boxShadow = '0 0 20px #ef4444';
+            status.innerHTML = "System Status: SEVERED";
+            status.classList.replace('text-green-500', 'text-red-500');
+
+            setTimeout(() => {
+                btn.innerHTML = "PROTOCOL SEVERED";
+                setTimeout(() => {
+                    location.reload(); // Hard Reset
+                }, 2000);
+            }, 3000);
         }
     </script>
 </body>
