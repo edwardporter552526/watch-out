@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCH OUT FOR ME | STEALTH AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .blue-glow { box-shadow: 0 0 60px rgba(59, 130, 246, 0.2); }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-6 text-center">
+
+    <nav class="w-full max-w-5xl flex justify-between items-center py-6">
+        <div class="text-[10px] font-bold tracking-[0.5em] text-blue-500 uppercase italic">Admin: Edward Porter</div>
+        <!-- UPDATED MASTER LINK -->
+        <a href="./portal.html" class="glass px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all text-white border border-white/10">Member Login</a>
+    </nav>
+
+    <main class="max-w-xl w-full space-y-12 my-auto">
+        <div class="space-y-6">
+            <h1 class="text-6xl md:text-8xl font-black tracking-tighter uppercase leading-none italic">
+                WATCH OUT <br><span class="text-blue-500">FOR ME</span>
+            </h1>
+            <p class="text-[10px] text-gray-400 tracking-[0.6em] uppercase font-bold">AI Supervision Protocol</p>
+        </div>
+
+        <div class="glass p-10 md:p-14 rounded-[50px] blue-glow border border-white/5 relative">
+            <div id="offer-view" class="space-y-8">
+                <div class="space-y-2">
+                    <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold">Node Activation Fee</p>
+                    <h2 class="text-8xl font-black text-white italic">$99</h2>
+                </div>
+                <button onclick="showZelle()" class="block w-full py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-500/30 active:scale-95 text-xl uppercase tracking-widest italic">
+                    Activate Now
+                </button>
+            </div>
+
+            <div id="zelle-view" class="hidden space-y-8">
+                <h3 class="text-2xl font-black uppercase italic text-blue-400">Payment Required</h3>
+                <div class="bg-white/5 p-6 rounded-2xl border-2 border-blue-500/50">
+                    <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest mb-1">Zelle ID:</p>
+                    <p class="text-lg md:text-xl font-mono font-bold text-white break-all uppercase">EDWARDPORTER2526@GMAIL.COM</p>
+                </div>
+                <button onclick="hideZelle()" class="text-[10px] text-gray-500 hover:text-white uppercase tracking-widest underline underline-offset-4 font-bold">Cancel</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="w-full max-w-5xl flex flex-col items-center space-y-6 border-t border-white/5 pt-10 pb-6">
+        <div class="flex space-x-8">
+            <a href="./privacy.html" class="text-gray-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8">Privacy Policy</a>
+            <a href="./portal.html" class="text-blue-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8 font-bold">Enter Portal</a>
+        </div>
+    </footer>
+
+    <script>
+        function showZelle() { document.getElementById('offer-view').classList.add('hidden'); document.getElementById('zelle-view').classList.remove('hidden'); }
+        function hideZelle() { document.getElementById('offer-view').classList.remove('hidden'); document.getElementById('zelle-view').classList.add('hidden'); }
+    </script>
+</body>
+</html>
