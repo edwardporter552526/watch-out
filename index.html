@@ -3,138 +3,164 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WATCH OUT FOR ME | STEALTH AI</title>
+    <title>Watch Out For Me | Global AI Safety Network</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <style>
-        body { background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
-        .blue-glow { box-shadow: 0 0 50px rgba(59, 130, 246, 0.15); }
-        .copy-btn:active { transform: scale(0.95); background: #3b82f6; color: white; }
-    </style>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Firebase SDKs (Compatibility Version) -->
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore-compat.js"></script>
 </head>
-<body class="min-h-screen flex flex-col items-center p-6">
+<body class="bg-[#050507] text-white font-sans antialiased">
 
-    <!-- Header Navigation -->
-    <nav class="w-full max-w-5xl flex justify-between items-center py-8">
-        <div class="text-[10px] font-bold tracking-[0.4em] text-blue-500 uppercase flex items-center gap-2">
-            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span> Network Active
+    <div id="app">
+        <!-- Loading State -->
+        <div class="min-h-screen flex items-center justify-center">
+            <div class="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin"></div>
         </div>
-        <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Client Support</a>
-    </nav>
-
-    <main class="max-w-xl w-full flex-grow flex flex-col justify-center space-y-12">
-        
-        <!-- Hero Section -->
-        <div class="text-center space-y-4">
-            <h1 class="text-6xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.9]">
-                WATCH OUT <br><span class="text-blue-500">FOR ME</span>
-            </h1>
-            <p class="text-[10px] text-gray-500 tracking-[0.5em] uppercase font-bold">Stealth AI Supervision</p>
-        </div>
-
-        <!-- Initial Offer View -->
-        <div id="main-view" class="glass p-10 rounded-[40px] blue-glow border border-white/5 text-center transition-all duration-500">
-            <div class="mb-10">
-                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">Activation License</p>
-                <div class="text-7xl font-black text-white italic tracking-tighter">$99</div>
-                <p class="text-[9px] text-blue-400 uppercase font-bold mt-2 tracking-widest">Lifetime Access Key</p>
-            </div>
-
-            <button onclick="showStep(2)" class="group relative w-full py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-600/20 text-xl uppercase italic tracking-widest overflow-hidden">
-                <span class="relative z-10">Activate via Zelle</span>
-                <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform"></div>
-            </button>
-            
-            <p class="text-[9px] text-gray-600 mt-6 uppercase tracking-[0.2em] font-bold">Encrypted Node Registration</p>
-        </div>
-
-        <!-- Zelle Instructions View (Hidden by default) -->
-        <div id="payment-view" class="hidden glass p-8 md:p-12 rounded-[40px] border border-blue-500/30 animate-in fade-in zoom-in duration-300">
-            <div class="flex items-center justify-between mb-8">
-                <h3 class="text-xl font-black uppercase italic italic">Step 1: Transfer</h3>
-                <span class="text-[10px] bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full font-bold uppercase">Pending Payment</span>
-            </div>
-
-            <p class="text-xs text-gray-400 uppercase tracking-widest mb-8 leading-relaxed">
-                Send <span class="text-white font-bold">$99.00</span> exactly to the Zelle ID below to authorize your AI node.
-            </p>
-            
-            <div class="space-y-4 mb-10">
-                <div class="relative group">
-                    <label class="text-[9px] text-blue-400 font-bold uppercase tracking-widest absolute -top-2 left-4 bg-black px-2">Recipient Zelle ID</label>
-                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center justify-between">
-                        <span id="zelle-id" class="text-sm md:text-lg font-mono font-bold text-white tracking-wider">edwardporter2526@gmail.com</span>
-                        <button onclick="copyId()" class="copy-btn px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-[9px] uppercase font-bold transition-all border border-white/10">Copy</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-blue-500/5 p-6 rounded-2xl border border-blue-500/10 mb-8">
-                <h4 class="text-[10px] font-black uppercase mb-2 text-white">Step 2: Confirmation</h4>
-                <p class="text-[10px] text-gray-400 leading-relaxed uppercase tracking-wider">
-                    After transfer, system monitors will verify the transaction. Your <span class="text-blue-400">STEALTH Activation Key</span> will be dispatched to your email automatically.
-                </p>
-            </div>
-
-            <div class="flex justify-between items-center pt-4">
-                <button onclick="showStep(1)" class="text-[9px] text-gray-600 hover:text-white uppercase tracking-widest transition-colors">← Cancel</button>
-                <button type="button"
-onclick="this.innerHTML='Payment verification pending...'; window.location.href='mailto:edwardporter2526@gmail.com?subject=Watch%20Out%20For%20Me%20Payment%20Confirmation&body=Hello,%20I%20have%20sent%20payment%20via%20Zelle.%20My%20name%20is:%20Edward%20Porter'"
-class="text-[9px] text-blue-500 font-bold uppercase hover:underline"
-style="background: none; border: none; color: #3b82f6; cursor: pointer; font-weight: bold; font-family: sans-serif;">
-Confirm Payment Sent
-</button>
-</button>
-class="text-[9px] text-blue-500 font-bold uppercase hover:underline">
-Confirm Payment Sent
-</button>
-            </div>
-        </div>
-
-    </main>
-
-    <!-- Footer Information -->
-    <footer class="w-full max-w-5xl pt-12 pb-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5">
-        <div class="text-[9px] text-gray-700 tracking-[0.4em] font-bold uppercase">Admin: Edward Porter | © 2026</div>
-        <div class="flex space-x-8">
-            <a href="#" class="text-gray-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8 transition-colors">Privacy Protocol</a>
-            <a href="#" class="text-gray-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8 transition-colors">Client Portal</a>
-        </div>
-    </footer>
-
-    <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest border-blue-500/50 text-blue-400 opacity-0 transition-opacity pointer-events-none">
-        Zelle ID Copied to Clipboard
     </div>
 
     <script>
-        function showStep(step) {
-            const main = document.getElementById('main-view');
-            const pay = document.getElementById('payment-view');
+        // --- 1. CONFIGURATION ---
+        // Ensure you paste your actual Gemini API Key inside the quotes below
+        const apiKey = ""; 
+        const STRIPE_LINK = "https://buy.stripe.com/your_link_here";
+        const appId = "watch-out-global-v1";
+
+        // Firebase Initialization (Environment will provide __firebase_config)
+        const firebaseConfig = JSON.parse(__firebase_config);
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        const appContainer = document.getElementById('app');
+
+        // --- 2. AUTHENTICATION ---
+        auth.signInAnonymously().catch(err => console.error("Auth Error:", err));
+
+        auth.onAuthStateChanged(user => {
+            if (user) {
+                checkPaymentStatus(user);
+            }
+        });
+
+        // --- 3. CORE LOGIC ---
+        async function checkPaymentStatus(user) {
+            // Path: /artifacts/{appId}/public/data/customers/{userId}
+            const docRef = db.collection('artifacts').doc(appId).collection('public').doc('data').collection('customers').doc(user.uid);
             
-            if(step === 2) {
-                main.classList.add('hidden');
-                pay.classList.remove('hidden');
-            } else {
-                main.classList.remove('hidden');
-                pay.classList.add('hidden');
+            docRef.onSnapshot((doc) => {
+                if (doc.exists && doc.data().status === 'active') {
+                    renderApp(user);
+                } else {
+                    renderLandingPage();
+                }
+            }, (error) => {
+                console.error("Firestore Error:", error);
+                renderLandingPage(); // Fallback to landing if error
+            });
+        }
+
+        function renderLandingPage() {
+            appContainer.innerHTML = `
+                <nav class="fixed top-0 w-full z-50 bg-[#050507]/80 backdrop-blur-md border-b border-white/5 px-6 py-4">
+                    <div class="max-w-6xl mx-auto flex justify-between items-center">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="shield-check" class="text-indigo-500"></i>
+                            <span class="font-black uppercase text-lg tracking-tighter italic">Watch Out <span class="text-indigo-500">For Me</span></span>
+                        </div>
+                        <a href="${STRIPE_LINK}" class="bg-white text-black text-[10px] font-black px-5 py-2.5 rounded-full uppercase tracking-widest hover:bg-indigo-500 hover:text-white transition-all">Get Access</a>
+                    </div>
+                </nav>
+
+                <header class="pt-40 pb-20 px-6 text-center space-y-8 max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/20 px-4 py-2 rounded-full">
+                        <i data-lucide="globe" class="w-3 h-3 text-indigo-400"></i>
+                        <span class="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-400">Global Launch v2.0</span>
+                    </div>
+                    <h1 class="text-5xl md:text-7xl font-black tracking-tighter leading-none uppercase italic">AI IS POWERFUL. <br/><span class="text-indigo-500">WE MAKE IT SAFE.</span></h1>
+                    <p class="text-gray-400 text-lg max-w-2xl mx-auto font-medium">Join the worldwide peer-supervised AI network. One-time payment. Lifetime global safety.</p>
+                    <div class="pt-6">
+                        <a href="${STRIPE_LINK}" class="inline-block bg-indigo-600 px-10 py-5 rounded-2xl font-black uppercase text-xs tracking-widest shadow-2xl shadow-indigo-600/20 hover:bg-indigo-500 transition-all">Join The Watch</a>
+                    </div>
+                    <p class="text-[9px] text-gray-600 font-bold uppercase tracking-widest">Your User ID: ${auth.currentUser ? auth.currentUser.uid : 'Initializing...'}</p>
+                </header>
+            `;
+            lucide.createIcons();
+        }
+
+        function renderApp(user) {
+            appContainer.innerHTML = `
+                <div class="min-h-screen flex flex-col pt-20">
+                    <div class="p-6 max-w-2xl mx-auto w-full space-y-8">
+                        <div class="flex justify-between items-center">
+                            <h1 class="text-2xl font-black uppercase tracking-tighter italic">The Watch Node</h1>
+                            <div class="text-[10px] font-black text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full uppercase tracking-widest flex items-center gap-2">
+                                <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span> Verified Member
+                            </div>
+                        </div>
+
+                        <div class="bg-white/5 p-8 rounded-[2.5rem] border border-white/10 space-y-6">
+                            <textarea id="promptInput" class="w-full bg-transparent border-none text-xl outline-none min-h-[120px] text-white placeholder:text-gray-700 font-medium" placeholder="Ask the global watch..."></textarea>
+                            <button id="sendBtn" onclick="handleAI()" class="w-full bg-indigo-600 hover:bg-indigo-500 py-5 rounded-2xl font-black uppercase text-xs tracking-widest transition-all">
+                                Send Secure Request
+                            </button>
+                        </div>
+                        
+                        <div id="aiResponseContainer" class="hidden animate-in fade-in slide-in-from-bottom-4">
+                            <h3 class="text-[10px] font-black uppercase tracking-[0.3em] text-gray-500 mb-4 px-2">Watch Response</h3>
+                            <div id="aiResponseText" class="bg-white/5 p-8 rounded-[2.5rem] border border-white/5 text-gray-300 leading-relaxed text-sm italic"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            lucide.createIcons();
+        }
+
+        async function handleAI() {
+            const prompt = document.getElementById('promptInput').value;
+            const btn = document.getElementById('sendBtn');
+            const responseContainer = document.getElementById('aiResponseContainer');
+            const responseText = document.getElementById('aiResponseText');
+
+            if (!prompt.trim() || !apiKey) {
+                if (!apiKey) alert("Administrator: Please add your Gemini API Key to the code.");
+                return;
+            }
+
+            btn.innerText = "CONSULTING THE WATCH...";
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+                });
+                
+                const data = await res.json();
+                const aiMsg = data.candidates[0].content.parts[0].text;
+
+                // Update UI
+                responseContainer.classList.remove('hidden');
+                responseText.innerText = aiMsg;
+
+                // Log to Firestore for "Supervision"
+                const user = auth.currentUser;
+                await db.collection('artifacts').doc(appId).collection('users').doc(user.uid).collection('ai_logs').add({
+                    prompt: prompt,
+                    response: aiMsg,
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+
+            } catch (err) {
+                console.error(err);
+                alert("Connection Interrupted. Please try again.");
+            } finally {
+                btn.innerText = "SEND SECURE REQUEST";
+                btn.disabled = false;
             }
         }
-
-        function copyId() {
-            const id = document.getElementById('zelle-id').innerText;
-            const textarea = document.createElement('textarea');
-            textarea.value = id;
-            document.body.appendChild(textarea);
-            textarea.select();
-            document.execCommand('copy');
-            document.body.removeChild(textarea);
-
-            const toast = document.getElementById('toast');
-            toast.classList.replace('opacity-0', 'opacity-100');
-            setTimeout(() => toast.classList.replace('opacity-100', 'opacity-0'), 2000);
-        }
     </script>
-
 </body>
 </html>
