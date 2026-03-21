@@ -3,84 +3,167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WATCH OUT FOR ME | OFFICIAL</title>
+    <title>WATCH OUT FOR ME</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
-        .noir-card { background: #0a0a0a; border: 1px solid #1a1a1a; border-radius: 2rem; }
-        .glitch { text-shadow: 2px 0 #3b82f6, -2px 0 #ef4444; }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap');
+        
+        body { 
+            background-color: #000000; 
+            color: #ffffff; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        .glitch-text {
+            text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff,
+                         0.025em 0.04em 0 #fffc00;
+            animation: glitch 725ms infinite;
+        }
+
+        @keyframes glitch {
+            0% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            15% { text-shadow: 0.05em 0 0 #00fffc, -0.03em -0.04em 0 #fc00ff, 0.025em 0.04em 0 #fffc00; }
+            16% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            49% { text-shadow: -0.05em -0.025em 0 #00fffc, 0.025em 0.035em 0 #fc00ff, -0.05em -0.05em 0 #fffc00; }
+            50% { text-shadow: 0.03em 0.035em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            99% { text-shadow: 0.03em 0.035em 0 #00fffc, 0.05em 0 0 #fc00ff, 0 -0.05em 0 #fffc00; }
+            100% { text-shadow: -0.025em 0 0 #00fffc, -0.025em -0.025em 0 #fc00ff, -0.025em -0.05em 0 #fffc00; }
+        }
+
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+        }
+
         .hidden { display: none !important; }
+
+        input::placeholder { color: #444; }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-6 text-center">
+<body>
 
-    <div id="landing" class="w-full max-w-md space-y-10">
-        <header class="space-y-2">
-            <h1 class="text-6xl font-black italic tracking-tighter glitch uppercase leading-none">
-                WATCH OUT <br> FOR ME
+    <!-- GATEKEEPER / LANDING -->
+    <div id="gatekeeper" class="w-full max-w-md p-8 text-center space-y-8">
+        <div class="space-y-2">
+            <h1 class="text-6xl font-black italic uppercase tracking-tighter glitch-text leading-none">
+                WATCH OUT<br>FOR ME
             </h1>
-            <p class="text-blue-500 font-bold tracking-[0.4em] text-[10px] uppercase">Global Safety Network</p>
-        </header>
+            <p class="text-[10px] tracking-[0.5em] text-zinc-500 font-bold uppercase py-2">Secure Safety Network</p>
+        </div>
 
-        <div class="space-y-4 pt-4">
-            <a href="https://buy.stripe.com/PAYMENT_LINK" target="_blank" class="block w-full py-6 bg-white text-black font-extrabold text-lg rounded-3xl uppercase tracking-widest hover:bg-blue-600 hover:text-white transition-all">
-                JOIN THE WATCH ($25)
-            </a>
-            
-            <button onclick="toggleZelle()" class="w-full py-4 border border-white/10 text-gray-500 font-bold rounded-3xl text-[10px] uppercase tracking-widest">
-                Pay with Zelle / CashApp
+        <div class="space-y-4 pt-6">
+            <button onclick="window.open('https://buy.stripe.com/PAYMENT_LINK', '_blank')" class="w-full py-5 bg-white text-black font-black text-lg rounded-2xl hover:scale-[1.02] transition-transform active:scale-95">
+                JOIN THE WATCH
             </button>
-        </div>
-
-        <div id="zelle-box" class="hidden noir-card p-6 text-left space-y-4 border-blue-900/30">
-            <p class="text-blue-500 font-black text-[9px] uppercase tracking-widest">Manual Activation</p>
-            <p class="text-xs text-gray-400">1. Send <b>$25</b> via Zelle/CashApp to your rep.<br>2. Text your <b>Name & Email</b> to support.<br>3. Enter the <b>Member Key</b> below once confirmed.</p>
-        </div>
-
-        <div class="pt-10 border-t border-white/5">
-            <p class="text-[9px] text-gray-700 font-black uppercase tracking-[0.2em] mb-4">Member Access Portal</p>
-            <div class="flex gap-2">
-                <input type="password" id="pass-key" placeholder="KEY" class="flex-1 bg-zinc-900 border border-white/10 p-4 rounded-2xl text-center text-sm outline-none focus:border-blue-500 text-white">
-                <button onclick="checkKey()" class="bg-blue-600 px-8 rounded-2xl font-black text-xs uppercase">Enter</button>
+            
+            <div class="glass-panel p-6 space-y-4">
+                <p class="text-xs text-zinc-400 font-medium">Have a network key? Enter it below.</p>
+                <div class="flex gap-2">
+                    <input type="password" id="accessKey" placeholder="XXXX-XXXX" class="flex-1 bg-black border border-zinc-800 rounded-xl px-4 py-3 text-center font-mono text-white focus:border-blue-500 outline-none transition-colors">
+                    <button onclick="validateKey()" class="bg-blue-600 hover:bg-blue-500 px-6 rounded-xl font-bold text-sm transition-colors">LOGIN</button>
+                </div>
+                <div id="error-msg" class="text-red-500 text-[10px] font-bold uppercase hidden">Invalid Access Key</div>
             </div>
         </div>
+
+        <p class="text-[9px] text-zinc-600 uppercase tracking-widest">v2.5.0-stable // encrypted end-to-end</p>
     </div>
 
-    <div id="dashboard" class="hidden w-full max-w-lg space-y-6">
-        <div class="noir-card p-8 space-y-8">
-            <div class="flex justify-between items-center border-b border-white/5 pb-4">
-                <h2 class="text-2xl font-black italic uppercase tracking-tighter">Supervisor</h2>
-                <span class="text-[10px] text-green-500 font-bold animate-pulse">● LIVE</span>
+    <!-- MAIN DASHBOARD -->
+    <div id="main-app" class="hidden w-full max-w-4xl p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Sidebar Stats -->
+        <div class="glass-panel p-6 space-y-6">
+            <div>
+                <p class="text-blue-500 text-[10px] font-black uppercase tracking-widest mb-1">Status</p>
+                <div class="flex items-center gap-2">
+                    <div class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                    <span class="text-xl font-bold">SYSTEM ACTIVE</span>
+                </div>
+            </div>
+            <div class="h-px bg-zinc-800"></div>
+            <div>
+                <p class="text-zinc-500 text-[10px] font-black uppercase tracking-widest mb-2">Network Nodes</p>
+                <div class="text-3xl font-black italic">1,248</div>
+            </div>
+            <button onclick="location.reload()" class="w-full py-3 border border-zinc-800 rounded-xl text-[10px] font-bold text-zinc-500 uppercase tracking-widest hover:bg-zinc-900 transition-colors mt-auto">Disconnect</button>
+        </div>
+
+        <!-- Main Feed -->
+        <div class="md:col-span-2 glass-panel p-6 flex flex-col h-[500px]">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-black italic uppercase tracking-tight">Security Feed</h2>
+                <span class="text-[10px] font-mono text-zinc-500" id="timestamp"></span>
             </div>
             
-            <div class="bg-black/50 p-6 rounded-3xl border border-white/5">
-                <p class="text-blue-500 text-[9px] font-black uppercase mb-1">AI Node Strength</p>
-                <p class="text-4xl font-black italic">99.8%</p>
+            <div class="flex-1 bg-black/40 rounded-xl border border-zinc-800/50 p-4 font-mono text-[11px] overflow-y-auto space-y-2 text-zinc-400" id="terminal">
+                <div>> Initializing secure tunnel...</div>
+                <div>> Accessing global node 07...</div>
+                <div>> Ready for commands.</div>
             </div>
 
-            <textarea placeholder="Enter Network Command..." class="w-full bg-black border border-white/10 rounded-3xl p-6 h-32 outline-none focus:border-blue-500 italic text-sm text-gray-300"></textarea>
-            
-            <button onclick="alert('Scanning Network...')" class="w-full py-5 bg-blue-600 rounded-3xl font-black uppercase tracking-widest text-xs">Execute Security Scan</button>
-            
-            <button onclick="location.reload()" class="w-full py-4 text-gray-600 font-bold text-[10px] uppercase tracking-widest">Logout System</button>
+            <div class="mt-4 flex gap-2">
+                <input type="text" id="cmdInput" placeholder="Enter command..." class="flex-1 bg-zinc-900/50 border border-zinc-800 rounded-xl px-4 py-3 text-sm focus:border-blue-500 outline-none">
+                <button onclick="sendCommand()" class="bg-blue-600 p-3 rounded-xl">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>
+                </button>
+            </div>
         </div>
     </div>
 
     <script>
-        function toggleZelle() {
-            document.getElementById('zelle-box').classList.toggle('hidden');
-        }
+        // Update Timestamp
+        setInterval(() => {
+            const now = new Date();
+            document.getElementById('timestamp').innerText = now.toISOString().replace('T', ' ').substring(0, 19);
+        }, 1000);
 
-        function checkKey() {
-            const key = document.getElementById('pass-key').value.toUpperCase();
-            // Your Master Key
-            if(key === 'WATCH2024' || key === 'STEALTH') {
-                document.getElementById('landing').classList.add('hidden');
-                document.getElementById('dashboard').classList.remove('hidden');
+        function validateKey() {
+            const key = document.getElementById('accessKey').value.trim().toUpperCase();
+            const error = document.getElementById('error-msg');
+            
+            // Define your master keys here
+            if (key === 'STEALTH' || key === 'WATCH2024') {
+                document.getElementById('gatekeeper').classList.add('hidden');
+                document.getElementById('main-app').classList.remove('hidden');
+                document.body.style.alignItems = 'flex-start';
+                document.body.style.paddingTop = '5vh';
             } else {
-                alert('ACCESS DENIED. Check payment status.');
+                error.classList.remove('hidden');
+                setTimeout(() => error.classList.add('hidden'), 3000);
             }
         }
+
+        function sendCommand() {
+            const input = document.getElementById('cmdInput');
+            const terminal = document.getElementById('terminal');
+            if (!input.value) return;
+
+            const div = document.createElement('div');
+            div.innerHTML = `<span class="text-blue-500">USER:</span> ${input.value}`;
+            terminal.appendChild(div);
+            
+            // Simple Auto-response
+            setTimeout(() => {
+                const response = document.createElement('div');
+                response.innerHTML = `<span class="text-green-500">SYS:</span> Command [${input.value.split(' ')[0]}] executed successfully. Routing via encrypted relay...`;
+                terminal.appendChild(response);
+                terminal.scrollTop = terminal.scrollHeight;
+            }, 600);
+
+            input.value = '';
+            terminal.scrollTop = terminal.scrollHeight;
+        }
+
+        // Allow Enter key to submit
+        document.getElementById('accessKey').addEventListener('keypress', (e) => { if(e.key === 'Enter') validateKey(); });
+        document.getElementById('cmdInput').addEventListener('keypress', (e) => { if(e.key === 'Enter') sendCommand(); });
     </script>
 </body>
 </html>
