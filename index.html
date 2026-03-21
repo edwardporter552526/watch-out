@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCH OUT FOR ME | STEALTH AI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.1); }
+        .blue-glow { box-shadow: 0 0 50px rgba(59, 130, 246, 0.15); }
+        .copy-btn:active { transform: scale(0.95); background: #3b82f6; color: white; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center p-6">
+
+    <!-- Header Navigation -->
+    <nav class="w-full max-w-5xl flex justify-between items-center py-8">
+        <div class="text-[10px] font-bold tracking-[0.4em] text-blue-500 uppercase flex items-center gap-2">
+            <span class="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span> Network Active
+        </div>
+        <a href="#" class="text-[10px] font-bold uppercase tracking-widest text-gray-400 hover:text-white transition-colors">Client Support</a>
+    </nav>
+
+    <main class="max-w-xl w-full flex-grow flex flex-col justify-center space-y-12">
+        
+        <!-- Hero Section -->
+        <div class="text-center space-y-4">
+            <h1 class="text-6xl md:text-7xl font-black tracking-tighter uppercase italic leading-[0.9]">
+                WATCH OUT <br><span class="text-blue-500">FOR ME</span>
+            </h1>
+            <p class="text-[10px] text-gray-500 tracking-[0.5em] uppercase font-bold">Stealth AI Supervision</p>
+        </div>
+
+        <!-- Initial Offer View -->
+        <div id="main-view" class="glass p-10 rounded-[40px] blue-glow border border-white/5 text-center transition-all duration-500">
+            <div class="mb-10">
+                <p class="text-[10px] text-gray-400 uppercase tracking-widest font-bold mb-2">Activation License</p>
+                <div class="text-7xl font-black text-white italic tracking-tighter">$99</div>
+                <p class="text-[9px] text-blue-400 uppercase font-bold mt-2 tracking-widest">Lifetime Access Key</p>
+            </div>
+
+            <button onclick="showStep(2)" class="group relative w-full py-6 bg-blue-600 hover:bg-blue-500 text-white font-black rounded-2xl transition-all shadow-xl shadow-blue-600/20 text-xl uppercase italic tracking-widest overflow-hidden">
+                <span class="relative z-10">Activate via Zelle</span>
+                <div class="absolute inset-0 bg-white/10 translate-y-full group-hover:translate-y-0 transition-transform"></div>
+            </button>
+            
+            <p class="text-[9px] text-gray-600 mt-6 uppercase tracking-[0.2em] font-bold">Encrypted Node Registration</p>
+        </div>
+
+        <!-- Zelle Instructions View (Hidden by default) -->
+        <div id="payment-view" class="hidden glass p-8 md:p-12 rounded-[40px] border border-blue-500/30 animate-in fade-in zoom-in duration-300">
+            <div class="flex items-center justify-between mb-8">
+                <h3 class="text-xl font-black uppercase italic italic">Step 1: Transfer</h3>
+                <span class="text-[10px] bg-blue-500/20 text-blue-400 px-3 py-1 rounded-full font-bold uppercase">Pending Payment</span>
+            </div>
+
+            <p class="text-xs text-gray-400 uppercase tracking-widest mb-8 leading-relaxed">
+                Send <span class="text-white font-bold">$99.00</span> exactly to the Zelle ID below to authorize your AI node.
+            </p>
+            
+            <div class="space-y-4 mb-10">
+                <div class="relative group">
+                    <label class="text-[9px] text-blue-400 font-bold uppercase tracking-widest absolute -top-2 left-4 bg-black px-2">Recipient Zelle ID</label>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-white/10 flex items-center justify-between">
+                        <span id="zelle-id" class="text-sm md:text-lg font-mono font-bold text-white tracking-wider">edwardporter2526@gmail.com</span>
+                        <button onclick="copyId()" class="copy-btn px-4 py-2 bg-white/5 hover:bg-white/10 rounded-lg text-[9px] uppercase font-bold transition-all border border-white/10">Copy</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-500/5 p-6 rounded-2xl border border-blue-500/10 mb-8">
+                <h4 class="text-[10px] font-black uppercase mb-2 text-white">Step 2: Confirmation</h4>
+                <p class="text-[10px] text-gray-400 leading-relaxed uppercase tracking-wider">
+                    After transfer, system monitors will verify the transaction. Your <span class="text-blue-400">STEALTH Activation Key</span> will be dispatched to your email automatically.
+                </p>
+            </div>
+
+            <div class="flex justify-between items-center pt-4">
+                <button onclick="showStep(1)" class="text-[9px] text-gray-600 hover:text-white uppercase tracking-widest transition-colors">← Cancel</button>
+                <div class="text-[9px] text-blue-500 font-bold uppercase animate-pulse">Awaiting Signal...</div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Footer Information -->
+    <footer class="w-full max-w-5xl pt-12 pb-8 flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/5">
+        <div class="text-[9px] text-gray-700 tracking-[0.4em] font-bold uppercase">Admin: Edward Porter | © 2026</div>
+        <div class="flex space-x-8">
+            <a href="#" class="text-gray-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8 transition-colors">Privacy Protocol</a>
+            <a href="#" class="text-gray-500 hover:text-white text-[9px] uppercase tracking-widest underline underline-offset-8 transition-colors">Client Portal</a>
+        </div>
+    </footer>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="fixed bottom-10 left-1/2 -translate-x-1/2 glass px-6 py-3 rounded-full text-[10px] font-bold uppercase tracking-widest border-blue-500/50 text-blue-400 opacity-0 transition-opacity pointer-events-none">
+        Zelle ID Copied to Clipboard
+    </div>
+
+    <script>
+        function showStep(step) {
+            const main = document.getElementById('main-view');
+            const pay = document.getElementById('payment-view');
+            
+            if(step === 2) {
+                main.classList.add('hidden');
+                pay.classList.remove('hidden');
+            } else {
+                main.classList.remove('hidden');
+                pay.classList.add('hidden');
+            }
+        }
+
+        function copyId() {
+            const id = document.getElementById('zelle-id').innerText;
+            const textarea = document.createElement('textarea');
+            textarea.value = id;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            const toast = document.getElementById('toast');
+            toast.classList.replace('opacity-0', 'opacity-100');
+            setTimeout(() => toast.classList.replace('opacity-100', 'opacity-0'), 2000);
+        }
+    </script>
+
+</body>
+</html>
