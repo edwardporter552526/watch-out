@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SECURE ACCESS | WATCH OUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background-color: #000000; color: #ffffff; font-family: sans-serif; }
+        .card { background: #111111; border: 1px solid #333333; border-radius: 30px; }
+        .panic-pulse { animation: pulse 0.5s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-center p-4">
+    <div id="login-box" class="card w-full max-w-sm p-8 space-y-8 text-center">
+        <h1 class="text-2xl font-black italic text-blue-500 tracking-widest uppercase">AUTHENTICATE</h1>
+        <input type="text" id="shadow-key" placeholder="KEY" class="w-full bg-black border border-gray-700 p-4 rounded-xl text-center text-white uppercase outline-none focus:border-blue-500">
+        <button onclick="unlock()" class="w-full py-4 bg-white text-black font-black rounded-xl uppercase active:scale-95 transition-all">Initiate Link</button>
+        <a href="index.html" class="block text-[10px] text-gray-500 uppercase font-bold mt-4">Return Home</a>
+        <p id="error" class="hidden text-red-500 text-[10px] font-bold uppercase">Invalid Key</p>
+    </div>
+    <div id="dashboard" class="hidden w-full max-w-lg space-y-6">
+        <div class="flex justify-between items-center px-2">
+            <span class="text-[10px] font-bold text-green-500 uppercase tracking-widest">Node: Active</span>
+            <button onclick="location.reload()" class="text-[10px] text-gray-500 font-bold uppercase">Logout</button>
+        </div>
+        <div class="card p-8 space-y-8 text-center">
+            <h1 class="text-3xl font-black italic tracking-tighter uppercase border-b border-gray-800 pb-4">SUPERVISOR</h1>
+            <button id="panic-btn" onclick="triggerPanic()" class="w-full py-8 bg-red-900/30 border-2 border-red-500/50 rounded-2xl text-red-500 font-black text-xl uppercase tracking-widest active:scale-95 transition-all">PANIC RESET</button>
+        </div>
+    </div>
+    <script>
+        function unlock() {
+            const key = document.getElementById('shadow-key').value.trim().toUpperCase();
+            if (key === 'STEALTH') {
+                document.getElementById('login-box').style.display = 'none';
+                document.getElementById('dashboard').style.display = 'block';
+            } else {
+                const err = document.getElementById('error');
+                err.style.display = 'block';
+                setTimeout(() => { err.style.display = 'none'; }, 2000);
+            }
+        }
+        function triggerPanic() {
+            const btn = document.getElementById('panic-btn');
+            btn.innerHTML = "SEVERING...";
+            btn.classList.add('panic-pulse');
+            setTimeout(() => { btn.innerHTML = "SEVERED"; setTimeout(() => { location.reload(); }, 2000); }, 2500);
+        }
+    </script>
+</body>
+</html>
