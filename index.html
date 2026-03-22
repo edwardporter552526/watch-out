@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Out For Me | Supervisor Test</title>
+    <style>
+        body { background: #000; color: #D4AF37; font-family: sans-serif; text-align: center; padding-top: 100px; }
+        
+        /* THE LOCK SCREEN */
+        #gatekeeper { display: block; }
+        
+        /* THE ACTUAL CONTENT (Initially Hidden) */
+        #app-content { display: none; padding: 20px; border: 1px solid #333; background: #111; border-radius: 15px; width: 80%; margin: 0 auto; }
+
+        input { padding: 15px; border-radius: 5px; border: 1px solid #D4AF37; background: #222; color: #fff; width: 200px; margin-bottom: 20px; font-size: 1.2rem; }
+        
+        .btn { background: #D4AF37; color: #000; padding: 15px 30px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; }
+        
+        .status-light { margin-top: 50px; font-size: 0.8rem; color: #444; }
+    </style>
+</head>
+<body>
+
+    <div id="gatekeeper">
+        <h1>WATCH OUT FOR ME</h1>
+        <p>Private Testing Mode</p>
+        <input type="password" id="mypass" placeholder="Enter 1974">
+        <br>
+        <button class="btn" onclick="unlockNow()">UNLOCK APP</button>
+    </div>
+
+    <div id="app-content">
+        <h2 style="color: #fff;">TESTING ACTIVE</h2>
+        <p>Your Branding & Products are Loaded Below:</p>
+        <hr style="border: 0.5px solid #333;">
+        
+        <div style="padding: 20px;">
+            <h3>The Lifetime Supervision Key</h3>
+            <p>$99.00 - One Time Investment</p>
+            <a href="mailto:edwardporter@watchout4us.com" class="btn">Test Email Link</a>
+        </div>
+    </div>
+
+    <div class="status-light">System Status: <span id="sys">Ready</span></div>
+
+    <script>
+        function unlockNow() {
+            var pass = document.getElementById("mypass").value;
+            
+            // Check the password
+            if (pass === "1974") {
+                // If correct, hide the lock and show the content
+                document.getElementById("gatekeeper").style.display = "none";
+                document.getElementById("app-content").style.display = "block";
+                document.getElementById("sys").innerHTML = "Unlocked";
+                document.getElementById("sys").style.color = "green";
+            } else {
+                alert("Incorrect Key. Access Denied.");
+                document.getElementById("mypass").value = "";
+            }
+        }
+    </script>
+
+</body>
+</html>
