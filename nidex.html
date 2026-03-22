@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Out For Me | Supervisor Test</title>
+    <style>
+        body { background: #000; color: #D4AF37; font-family: sans-serif; text-align: center; padding-top: 50px; }
+        #gatekeeper { display: block; }
+        #app-content { display: none; padding: 20px; border: 1px solid #333; background: #111; border-radius: 15px; width: 90%; max-width: 600px; margin: 0 auto; }
+        input { padding: 15px; border-radius: 5px; border: 1px solid #D4AF37; background: #222; color: #fff; width: 200px; margin-bottom: 20px; font-size: 1.2rem; }
+        .btn { background: #D4AF37; color: #000; padding: 15px 30px; border: none; border-radius: 5px; font-weight: bold; cursor: pointer; font-size: 1rem; text-decoration: none; display: inline-block; margin: 10px; }
+        .backup-box { background: #222; padding: 15px; border-radius: 10px; margin-top: 20px; border: 1px dashed #444; color: #fff; display: none; }
+    </style>
+</head>
+<body>
+
+    <div id="gatekeeper">
+        <h1>WATCH OUT FOR ME</h1>
+        <p>Private Testing Mode</p>
+        <input type="password" id="mypass" placeholder="Enter 1974">
+        <br>
+        <button class="btn" onclick="unlockNow()">UNLOCK APP</button>
+    </div>
+
+    <div id="app-content">
+        <h2 style="color: #fff;">TESTING ACTIVE</h2>
+        <hr style="border: 0.5px solid #333;">
+        
+        <div style="padding: 20px;">
+            <h3>The Lifetime Supervision Key</h3>
+            <p>$99.00 - One Time Investment</p>
+            
+            <a href="mailto:edwardporter@watchout4us.com?subject=Lifetime Key Inquiry" class="btn">1. Try Email Link</a>
+            
+            <br>
+            
+            <button class="btn" style="background: #444; color: #fff;" onclick="showBackup()">2. Link Not Working?</button>
+        </div>
+
+        <div id="backup" class="backup-box">
+            <p>If your email app didn't open, please use this address:</p>
+            <strong style="font-size: 1.2rem; color: #D4AF37;">edwardporter@watchout4us.com</strong>
+            <p style="font-size: 0.8rem; color: #888;">(Copy and paste this into your email provider)</p>
+        </div>
+    </div>
+
+    <script>
+        function unlockNow() {
+            var pass = document.getElementById("mypass").value;
+            if (pass === "1974") {
+                document.getElementById("gatekeeper").style.display = "none";
+                document.getElementById("app-content").style.display = "block";
+            } else {
+                alert("Incorrect Key.");
+            }
+        }
+
+        function showBackup() {
+            document.getElementById("backup").style.display = "block";
+        }
+    </script>
+
+</body>
+</html>
