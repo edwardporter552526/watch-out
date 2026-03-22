@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WATCH OUT FOR ME | $99 Mobile Merchant Node</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Space+Grotesk:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --brand-yellow: #facc15;
+            --brand-bg: #000000;
+            --brand-accent: #ffffff;
+        }
+
+        body {
+            font-family: 'Space Grotesk', sans-serif;
+            background-color: var(--brand-bg);
+            color: var(--brand-accent);
+            overflow-x: hidden;
+            letter-spacing: -0.01em;
+            scroll-behavior: smooth;
+        }
+
+        .heading-font { font-family: 'Syncopate', sans-serif; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+
+        .bg-pattern {
+            background-image: radial-gradient(circle at 2px 2px, rgba(250, 204, 21, 0.1) 1px, transparent 0);
+            background-size: 32px 32px;
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+        }
+
+        .caution-tape {
+            background: repeating-linear-gradient(-45deg, #facc15, #facc15 20px, #000 20px, #000 40px);
+        }
+
+        .glass-dark {
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(250, 204, 21, 0.2);
+        }
+
+        .btn-caution {
+            background: var(--brand-yellow);
+            color: black;
+            font-weight: 800;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            cursor: pointer;
+        }
+
+        .phone-frame {
+            border: 12px solid #18181b;
+            border-radius: 3rem;
+            box-shadow: 0 0 50px rgba(250, 204, 21, 0.15);
+            transition: all 0.5s ease;
+        }
+        
+        .scan-line {
+            width: 100%;
+            height: 2px;
+            background: var(--brand-yellow);
+            position: absolute;
+            top: 0;
+            left: 0;
+            box-shadow: 0 0 15px var(--brand-yellow);
+            animation: scan 3s ease-in-out infinite;
+            z-index: 20;
+        }
+
+        @keyframes scan {
+            0%, 100% { top: 5%; }
+            50% { top: 95%; }
+        }
+
+        .animate-marquee {
+            display: flex;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* Test Console Styling */
+        .test-console {
+            background: #050505;
+            border: 1px solid #333;
+            color: #00ff00;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 10px;
+            padding: 10px;
+            height: 120px;
+            overflow-y: auto;
+        }
+    </style>
+</head>
+<body class="selection:bg-yellow-400 selection:text-black">
+
+    <div class="bg-pattern"></div>
+
+    <!-- Ticker Tape -->
+    <div class="fixed top-0 w-full z-[60] h-8 caution-tape flex items-center overflow-hidden border-b-2 border-yellow-400">
+        <div class="animate-marquee whitespace-nowrap">
+            <span class="mx-4 font-black text-black italic text-xs uppercase tracking-tighter">WATCH OUT FOR ME // $99 LIFETIME LICENSE // NO MONTHLY FEES // HIGH-FREQUENCY MERCHANT NODE //</span>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-8 w-full z-50 px-4 py-6">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 bg-yellow-400 text-black flex items-center justify-center font-black text-xl heading-font">W</div>
+                <div class="heading-font font-bold text-lg tracking-tighter uppercase italic">Watch Out For Me</div>
+            </div>
+            <div id="statusIndicator" class="hidden sm:flex items-center gap-2 px-3 py-1 border border-yellow-400/30 rounded-full">
+                <div class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></div>
+                <span class="text-[9px] mono text-yellow-400 font-bold uppercase">System_Linked</span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col justify-center px-6 pt-24 pb-12">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="space-y-8">
+                <div class="inline-block px-4 py-1 border-2 border-yellow-400 text-yellow-400 font-black text-xs uppercase tracking-widest italic">Cell Phone Activation</div>
+                <h1 class="text-5xl md:text-7xl font-black heading-font leading-none tracking-tighter italic">
+                    WATCH OUT <br>
+                    FOR <span class="text-yellow-400">ME.</span>
+                </h1>
+                <p class="text-xl text-zinc-400 max-w-lg leading-relaxed">
+                    Deploy your own high-frequency merchant node today. No hardware. No fees. Just $99 to own the technology forever.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#portal" class="btn-caution px-10 py-5 rounded-sm">Get the App - $99</a>
+                    <a href="#test-lab" class="px-10 py-5 border-2 border-zinc-700 font-bold uppercase tracking-widest text-xs flex items-center hover:bg-white hover:text-black transition-all">Test It Now</a>
+                </div>
+            </div>
+
+            <!-- The Integrated App Preview (Visual) -->
+            <div class="flex justify-center">
+                <div id="mainPhoneFrame" class="relative phone-frame w-[280px] h-[580px] bg-zinc-950 overflow-hidden">
+                    <div id="uiScanLine" class="scan-line hidden"></div>
+                    
+                    <!-- App Interface -->
+                    <div id="appUI" class="p-6 pt-12 flex flex-col h-full">
+                        <div class="flex justify-between items-center mb-10">
+                            <div class="text-[10px] font-black heading-font italic">W.O.F.M</div>
+                            <div class="text-[8px] mono text-yellow-400 px-2 py-0.5 border border-yellow-400/40 rounded">NODE_ACTIVE</div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div class="h-32 bg-yellow-400 rounded-2xl p-4 flex flex-col justify-between">
+                                <div class="text-[8px] font-black text-black uppercase">Merchant_Balance</div>
+                                <div id="liveBalance" class="text-3xl font-black text-black italic">$0.00</div>
+                                <div class="text-[8px] font-bold text-black/60 mono uppercase italic">Verified_Node_77X</div>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 rounded-2xl p-4 space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <div class="text-[8px] mono text-zinc-500 uppercase">Signal_Strength</div>
+                                    <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
+                                </div>
+                                <div class="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                                    <div id="procBar" class="h-full w-0 bg-yellow-400 transition-all duration-500"></div>
+                                </div>
+                                <div class="flex justify-between text-[10px] font-black uppercase">
+                                    <span>Sync</span>
+                                    <span id="procVal" class="text-yellow-400">0%</span>
+                                </div>
+                            </div>
+
+                            <button onclick="startTestTransaction()" class="mt-auto w-full h-14 bg-yellow-400 rounded-xl text-xs font-black text-black uppercase tracking-widest shadow-lg">Process Payment</button>
+                        </div>
+                    </div>
+
+                    <!-- Processing Overlay -->
+                    <div id="appProcessing" class="hidden absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center p-6 text-center">
+                        <div class="w-16 h-16 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mb-4"></div>
+                        <div class="heading-font text-sm font-bold italic">ENCRYPTING LINK</div>
+                        <div class="text-[8px] mono text-zinc-500 mt-2">LOCAL_HANDSHAKE_P2P</div>
+                    </div>
+
+                    <!-- Success Overlay -->
+                    <div id="appSuccess" class="hidden absolute inset-0 bg-zinc-950 flex flex-col items-center justify-center p-6 text-center">
+                        <div class="w-16 h-16 bg-emerald-500 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
+                        </div>
+                        <div class="heading-font text-lg font-bold italic">SETTLED</div>
+                        <div id="successAmt" class="text-2xl font-black text-yellow-400">$0.00</div>
+                        <button onclick="resetApp()" class="mt-8 text-[8px] font-black uppercase text-zinc-500 underline">Close Receipt</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MASTER TEST LAB (YOUR PRIVATE WINDOW) -->
+    <section id="test-lab" class="py-24 bg-zinc-900/50 border-y-2 border-yellow-400/20">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="mb-12">
+                <h2 class="text-3xl font-black heading-font italic tracking-tighter">MASTER TESTING SUITE</h2>
+                <p class="text-zinc-500 text-sm mono">Direct backend override and application verification window.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Control Panel -->
+                <div class="glass-dark p-6 rounded-2xl space-y-6">
+                    <div class="text-xs font-black uppercase text-yellow-400 mb-4 border-b border-yellow-400/20 pb-2">Node Controls</div>
+                    
+                    <div class="space-y-2">
+                        <label class="text-[10px] mono text-zinc-500">SET_TEST_AMOUNT</label>
+                        <input type="number" id="testAmtInput" placeholder="250.00" class="w-full bg-black border border-zinc-700 p-3 rounded text-white mono outline-none focus:border-yellow-400">
+                    </div>
+
+                    <div class="space-y-2">
+                        <label class="text-[10px] mono text-zinc-500">MERCHANT_IDENTIFIER</label>
+                        <input type="text" id="testIdInput" placeholder="TEST_MERCHANT_01" class="w-full bg-black border border-zinc-700 p-3 rounded text-white mono outline-none focus:border-yellow-400">
+                    </div>
+
+                    <button onclick="runMasterTest()" class="w-full py-4 bg-white text-black font-black uppercase text-xs tracking-widest hover:bg-yellow-400 transition-all">Execute App Test</button>
+                    <button onclick="resetApp()" class="w-full py-2 border border-zinc-700 text-zinc-500 font-bold uppercase text-[10px]">Reset Simulator</button>
+                </div>
+
+                <!-- Live Diagnostics -->
+                <div class="lg:col-span-2 space-y-4">
+                    <div class="flex justify-between items-end">
+                        <div class="text-[10px] mono text-zinc-500">SYSTEM_LOG_STREAM</div>
+                        <div class="text-[8px] text-emerald-500 animate-pulse">● LIVE_FEED</div>
+                    </div>
+                    <div id="testLog" class="test-console rounded-xl">
+                        [INIT] Master Test Suite Active...<br>
+                        [WAIT] Awaiting user command...<br>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-zinc-800 rounded-xl">
+                            <div class="text-[8px] text-zinc-500 uppercase">Local Database</div>
+                            <div class="text-xs font-black text-emerald-500 mt-1 uppercase">Connected</div>
+                        </div>
+                        <div class="p-4 bg-zinc-800 rounded-xl">
+                            <div class="text-[8px] text-zinc-500 uppercase">Neural Handshake</div>
+                            <div id="neuralStatus" class="text-xs font-black text-zinc-500 mt-1 uppercase">Idle</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Activation Portal -->
+    <section id="portal" class="py-32 bg-zinc-950 relative">
+        <div class="max-w-3xl mx-auto px-6 text-center">
+            <h2 class="text-4xl font-black heading-font italic mb-4">NODE ACTIVATION</h2>
+            <div class="glass-dark p-12 rounded-3xl space-y-6">
+                <input type="text" id="licenseKey" placeholder="WATCH-OUT-FOR-ME-2024" class="w-full bg-black border-2 border-zinc-800 p-6 rounded-xl text-center text-xl mono text-white">
+                <button onclick="checkKey()" class="w-full btn-caution py-6 rounded-xl text-lg">Purchase Gateway</button>
+                <p class="text-[10px] text-zinc-600 italic">DEMO ACCESS: WOFM-DEMO-2024</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 bg-black text-center border-t border-white/5">
+        <div class="text-[10px] mono text-zinc-600 uppercase tracking-widest">© 2024 WATCH OUT FOR ME // ALL RIGHTS RESERVED</div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        let db, auth, appId;
+
+        // --- THE ACTUAL TESTER LOGIC ---
+        function log(msg) {
+            const consoleEl = document.getElementById('testLog');
+            const now = new Date().toLocaleTimeString();
+            consoleEl.innerHTML += `[${now}] ${msg}<br>`;
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+        }
+
+        window.startTestTransaction = function() {
+            log("User triggered manual payment from device UI.");
+            runMasterTest();
+        };
+
+        window.runMasterTest = function() {
+            const amt = document.getElementById('testAmtInput').value || "245.00";
+            const mId = document.getElementById('testIdInput').value || "DEFAULT_NODE";
+
+            log(`Starting test for Merchant: ${mId}`);
+            log(`Validating amount: $${amt}...`);
+
+            // 1. Show processing on device
+            document.getElementById('appUI').classList.add('hidden');
+            document.getElementById('appProcessing').classList.remove('hidden');
+            document.getElementById('uiScanLine').classList.remove('hidden');
+            document.getElementById('neuralStatus').innerText = "Active";
+            document.getElementById('neuralStatus').classList.replace('text-zinc-500', 'text-yellow-400');
+
+            // 2. Simulate logic steps
+            setTimeout(() => log("Neural Link Handshake: OK"), 800);
+            setTimeout(() => log("Biometric Verification: MATCH"), 1500);
+            setTimeout(() => log("Verifying Peer-to-Peer Path..."), 2200);
+
+            // 3. Complete Transaction
+            setTimeout(() => {
+                log(`Settlement Successful: $${amt}`);
+                document.getElementById('appProcessing').classList.add('hidden');
+                document.getElementById('appSuccess').classList.remove('hidden');
+                document.getElementById('successAmt').innerText = `$${amt}`;
+                document.getElementById('liveBalance').innerText = `$${amt}`;
+                document.getElementById('uiScanLine').classList.add('hidden');
+                document.getElementById('neuralStatus').innerText = "Settled";
+                document.getElementById('neuralStatus').classList.replace('text-yellow-400', 'text-emerald-500');
+                
+                // Update small progress bars
+                document.getElementById('procBar').style.width = "100%";
+                document.getElementById('procVal').innerText = "100%";
+            }, 3500);
+        };
+
+        window.resetApp = function() {
+            log("System Reset Command Sent.");
+            document.getElementById('appSuccess').classList.add('hidden');
+            document.getElementById('appUI').classList.remove('hidden');
+            document.getElementById('liveBalance').innerText = "$0.00";
+            document.getElementById('procBar').style.width = "0%";
+            document.getElementById('procVal').innerText = "0%";
+            document.getElementById('neuralStatus').innerText = "Idle";
+            document.getElementById('neuralStatus').className = "text-xs font-black text-zinc-500 mt-1 uppercase";
+        };
+
+        // --- Standard Portal Logic ---
+        window.checkKey = function() {
+            const val = document.getElementById('licenseKey').value.toUpperCase();
+            if(val.includes('WOFM')) {
+                window.location.hash = "portal";
+                alert("Key Validated. Purchase Gateway Unlocked.");
+            } else {
+                log("WARNING: Invalid license key attempt.");
+            }
+        };
+
+        // --- Firebase Init ---
+        async function init() {
+            try {
+                const configStr = (typeof __firebase_config !== 'undefined' && __firebase_config) ? __firebase_config : null;
+                if (!configStr) return;
+
+                const firebaseConfig = JSON.parse(configStr);
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                appId = typeof __app_id !== 'undefined' ? __app_id : 'default-id';
+
+                await signInAnonymously(auth);
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        document.getElementById('statusIndicator').classList.remove('hidden');
+                        log("Firebase Connected: User authenticated.");
+                    }
+                });
+            } catch (err) {
+                console.error(err);
+            }
+        }
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
