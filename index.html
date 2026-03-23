@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>W.O.F.M. | Vigilant Eye Security</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --silver: #C0C0C0;
+            --obsidian: #020202;
+            --caution: #facc15;
+        }
+
+        body { 
+            font-family: 'JetBrains Mono', monospace; 
+            background-color: var(--obsidian); 
+            color: var(--silver);
+            margin: 0;
+            background-image: linear-gradient(to bottom, #050505, #000);
+        }
+
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+
+        /* THE VIGILANT EYE LOGO (CSS) */
+        .eye-logo {
+            width: 80px; height: 50px;
+            border: 3px solid var(--silver);
+            border-radius: 80% 10%;
+            transform: rotate(45deg);
+            position: relative;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 0 20px rgba(192, 192, 192, 0.2);
+            margin: 0 auto;
+        }
+        .eye-logo::after {
+            content: "";
+            width: 20px; height: 20px;
+            background: var(--caution);
+            border-radius: 50%;
+            transform: rotate(-45deg);
+            box-shadow: 0 0 10px var(--caution);
+        }
+
+        .glass-card {
+            background: rgba(10, 10, 10, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 2px solid var(--silver);
+        }
+
+        .cyber-btn {
+            clip-path: polygon(5% 0, 100% 0, 100% 75%, 95% 100%, 0 100%, 0 25%);
+            transition: all 0.2s ease;
+        }
+        .cyber-btn:hover { background: #fff; color: #000; transform: scale(1.02); }
+
+        /* Mobile Simulation */
+        .phone-shell {
+            width: 310px; height: 620px;
+            border: 10px solid #111;
+            border-radius: 40px;
+            background: #000;
+            box-shadow: 0 0 100px rgba(0,0,0,1);
+            position: relative; overflow: hidden;
+        }
+
+        .record-pulse {
+            width: 12px; height: 12px;
+            background: #ef4444;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse { 0% { opacity: 1 } 50% { opacity: 0.3 } 100% { opacity: 1 } }
+    </style>
+</head>
+<body>
+
+    <header class="fixed top-0 w-full z-50 bg-black/90 border-b border-white/5 p-6 flex justify-between items-center">
+        <div class="flex items-center gap-4">
+            <div class="eye-logo scale-[0.4] m-0"></div>
+            <h1 class="font-tech text-xl text-white font-black italic">WATCH OUT FOR ME</h1>
+        </div>
+        <div class="text-[9px] font-mono tracking-[.3em] text-zinc-600">
+            SECURE_LINK: <span class="text-yellow-400 uppercase">Authorized</span>
+        </div>
+    </header>
+
+    <main class="pt-40 pb-20 px-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+        
+        <div class="space-y-12">
+            <div class="border-l-2 border-yellow-400 pl-8">
+                <h2 class="text-6xl font-tech font-black text-white italic mb-4">EYES ON<br>THE GROUND.</h2>
+                <p class="text-zinc-500 text-sm max-w-md">Activate the $99.00 lifetime merchant node. Access professional video witnessing and real-time communication tools built for personal protection.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="glass-card p-6">
+                    <div class="text-white text-[10px] font-bold uppercase mb-2">Live Witness</div>
+                    <p class="text-[10px] text-zinc-600">Stream high-res video directly to the decentralized vault.</p>
+                </div>
+                <div class="glass-card p-6">
+                    <div class="text-white text-[10px] font-bold uppercase mb-2">Comms Hub</div>
+                    <p class="text-[10px] text-zinc-600">Encryption-locked 2-way audio for critical moments.</p>
+                </div>
+            </div>
+
+            <div class="pt-6">
+                <button onclick="window.top.location.href='https://www.watchoutfor.me/thank-you'" class="cyber-btn bg-white text-black py-6 px-16 font-black uppercase text-sm">
+                    Initialize Eye Activation
+                </button>
+            </div>
+        </div>
+
+        <div class="flex justify-center">
+            <div class="phone-shell p-6">
+                <div class="h-full flex flex-col justify-between items-center">
+                    <div class="w-full flex justify-between items-center pt-2">
+                        <div class="record-pulse"></div>
+                        <span class="text-[8px] font-mono text-zinc-700 uppercase">REC_READY_2526</span>
+                    </div>
+
+                    <div class="flex flex-col items-center gap-6">
+                        <div class="eye-logo"></div>
+                        <div class="text-center">
+                            <span class="font-tech text-white text-lg font-bold">VIGILANT EYE</span>
+                            <p class="text-[7px] text-zinc-600 uppercase tracking-widest mt-1">Surveillance Mode Standby</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full space-y-3 pb-8">
+                        <div class="bg-zinc-900 p-4 border border-zinc-800 rounded-lg flex justify-between">
+                            <span class="text-[8px] uppercase">Node Vault</span>
+                            <span class="text-[8px] text-yellow-400">$99.00</span>
+                        </div>
+                        <div class="w-full py-4 border border-zinc-700 text-white text-[9px] text-center font-bold uppercase tracking-widest opacity-40">
+                            Awaiting Signal
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-black border-t border-white/5 py-24 px-10">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
+            <div>
+                <div class="font-tech text-white mb-6">W.O.F.M. TERMINAL</div>
+                <p class="text-[10px] text-zinc-600 max-w-xs leading-relaxed font-mono">
+                    Lifetime network license $99.00 USD. Digital access is provisioned upon payment confirmation. Support available via admin uplink.
+                </p>
+            </div>
+            <div class="space-y-4">
+                <h4 class="text-white text-[10px] font-bold uppercase tracking-widest">Administrative Contact</h4>
+                <div class="text-[10px] font-mono text-zinc-500">
+                    <p>ZELLE / SUPPORT:</p>
+                    <p class="text-white">edwardporter2526@gmail.com</p>
+                </div>
+                <p class="text-[8px] text-zinc-800 pt-10">© 2026 WATCH OUT FOR ME NETWORK // ED_ADMIN_01</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
