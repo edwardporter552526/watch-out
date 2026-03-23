@@ -1,0 +1,327 @@
+<!-- 
+  W.O.F.M. WIX-OPTIMIZED DEPLOYMENT
+  1. In Wix Editor, click (+) Add > Embed Code > Embed HTML.
+  2. Click 'Enter Code'.
+  3. Paste EVERYTHING below into the box.
+  4. STRETCH THE WIX BOX manually to ensure the height is at least 1200px.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Prevents Wix from trying to resolve internal links -->
+    <base target="_self">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Fallback fonts if Google Fonts fail to load in the sandbox */
+        body { 
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            background-color: #000; 
+            color: white; 
+            margin: 0; 
+            padding: 0;
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* Prevent background scroll when modal is active */
+        body.modal-open {
+            overflow: hidden;
+        }
+
+        .caution-tape { 
+            background: repeating-linear-gradient(-45deg, #facc15, #facc15 20px, #000 20px, #000 40px); 
+        }
+
+        .glass-dark { 
+            background: rgba(15, 15, 15, 0.95); 
+            border: 1px solid rgba(250, 204, 21, 0.3); 
+        }
+
+        .phone-frame { 
+            border: 12px solid #18181b; 
+            border-radius: 3rem; 
+            position: relative; 
+            background: #050505; 
+            height: 600px; 
+            width: 300px; 
+            margin: auto;
+            box-shadow: 0 0 50px rgba(250, 204, 21, 0.1);
+        }
+
+        .scanner-line { 
+            position: absolute; 
+            left: 0; 
+            width: 100%; 
+            height: 4px; 
+            background: #facc15; 
+            box-shadow: 0 0 20px #facc15; 
+            z-index: 30; 
+            top: -10%; 
+        }
+
+        @keyframes scan { 
+            0% { top: 0%; opacity: 0; } 
+            10% { opacity: 1; } 
+            90% { opacity: 1; } 
+            100% { top: 100%; opacity: 0; } 
+        }
+
+        .scanning .scanner-line { 
+            animation: scan 2s linear infinite; 
+        }
+
+        .legal-modal { 
+            display: none; 
+            position: fixed; 
+            inset: 0; 
+            z-index: 99999; 
+            background: rgba(0,0,0,0.9); 
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px; 
+        }
+
+        .legal-modal.active { display: flex; }
+
+        .animate-marquee { 
+            display: flex; 
+            animation: marquee 30s linear infinite; 
+        }
+
+        @keyframes marquee { 
+            0% { transform: translateX(0); } 
+            100% { transform: translateX(-50%); } 
+        }
+
+        /* Explicitly force buttons to be clickable */
+        button {
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Main Header -->
+    <header class="w-full bg-black border-b border-white/10 py-6 px-6">
+        <div class="max-w-7xl mx-auto flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <div class="w-6 h-6 bg-yellow-400 transform rotate-45"></div>
+                <span style="letter-spacing: -1px; font-weight: 900; font-size: 1.5rem;">WATCH OUT FOR ME</span>
+            </div>
+            <div class="hidden md:block text-[10px] text-zinc-500 font-mono tracking-widest uppercase">
+                Merchant Status: <span class="text-emerald-500">Node Online</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Ticker -->
+    <div class="w-full h-10 caution-tape flex items-center overflow-hidden border-b-2 border-yellow-400">
+        <div class="animate-marquee whitespace-nowrap">
+            <span class="mx-8 font-black text-black italic text-sm">WATCH OUT FOR ME // $99 LIFETIME LICENSE // MERCHANT NODE STABLE // edwardwatchout4us@gmail.com</span>
+            <span class="mx-8 font-black text-black italic text-sm">WATCH OUT FOR ME // $99 LIFETIME LICENSE // MERCHANT NODE STABLE // edwardwatchout4us@gmail.com</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="p-6 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center py-12">
+        <div class="space-y-8 text-center lg:text-left">
+            <div class="inline-block px-3 py-1 bg-yellow-400/10 border border-yellow-400 text-yellow-400 text-[10px] font-bold uppercase tracking-widest">
+                System License v1.0
+            </div>
+            <h1 class="text-6xl md:text-8xl font-black italic leading-tight uppercase">
+                WATCH OUT.<br>
+                <span class="text-yellow-400">EYES ON THE <br>PRIZE.</span>
+            </h1>
+            
+            <div class="bg-zinc-900/50 border-l-4 border-yellow-400 p-8 max-w-md mx-auto lg:mx-0">
+                <p class="text-zinc-400 text-xl mb-4 italic">Own your own high-frequency merchant node today.</p>
+                <div class="flex items-baseline gap-3 justify-center lg:justify-start">
+                    <span class="text-6xl font-black text-white italic">$99</span>
+                    <span class="text-sm text-zinc-500 uppercase font-bold tracking-widest">One-Time Activation</span>
+                </div>
+            </div>
+
+            <div class="pt-4">
+                <button onclick="window.toggleLegal(event)" class="bg-yellow-400 text-black px-12 py-6 rounded-xl font-black uppercase text-lg tracking-widest hover:scale-105 transition-transform shadow-2xl">
+                    Secure $99 Node
+                </button>
+            </div>
+        </div>
+
+        <!-- Simulator -->
+        <div id="phoneContainer" class="phone-frame overflow-hidden">
+            <div id="scannerLine" class="scanner-line"></div>
+            <div id="screen-home" class="h-full p-8 flex flex-col relative z-10">
+                <div class="flex justify-between items-center mb-10">
+                    <div class="text-yellow-400 font-bold text-[10px] font-mono">W.O.F.M._099</div>
+                    <div class="text-[10px] text-zinc-500 font-bold font-mono">ACTIVE</div>
+                </div>
+                
+                <div class="bg-yellow-400 p-6 rounded-3xl text-black mb-6">
+                    <div class="text-[10px] font-bold uppercase opacity-60">Handshake Vault</div>
+                    <div id="phone-balance" class="text-4xl font-black italic">$0.00</div>
+                </div>
+
+                <div class="space-y-3">
+                    <div class="bg-zinc-900 p-4 rounded-2xl flex justify-between items-center">
+                        <span class="text-[10px] text-zinc-500 uppercase font-bold">Node ID</span>
+                        <span class="text-[10px] font-mono">ED_ADMIN_01</span>
+                    </div>
+                </div>
+
+                <button id="phone-process-btn" onclick="window.triggerPayment(event)" class="mt-auto mb-6 w-full py-5 bg-white text-black rounded-2xl font-black uppercase text-sm active:scale-95 transition-all">
+                    Sign & Process
+                </button>
+            </div>
+
+            <!-- Process Screen -->
+            <div id="screen-processing" class="hidden absolute inset-0 bg-black flex flex-col items-center justify-center p-8 z-20">
+                <div class="w-20 h-20 border-4 border-yellow-400 border-t-transparent rounded-full animate-spin mb-6"></div>
+                <div class="text-yellow-400 font-bold tracking-widest text-[10px] uppercase">Scanning Biometrics...</div>
+            </div>
+
+            <!-- Success Screen -->
+            <div id="screen-success" class="hidden absolute inset-0 bg-black flex flex-col items-center justify-center p-8 text-center z-20">
+                <div class="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mb-6">
+                    <svg class="w-10 h-10 text-black" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="4"><path d="M5 13l4 4L19 7"></path></svg>
+                </div>
+                <div class="text-3xl font-black text-yellow-400 mb-2 italic uppercase">Node Active</div>
+                <div class="text-[10px] text-zinc-500 uppercase font-mono">Handshake Verified</div>
+                <button onclick="window.resetApp(event)" class="mt-12 text-[10px] text-zinc-400 uppercase border-b border-zinc-800">Return to Vault</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Diagnostic Lab -->
+    <div class="mt-20 p-12 bg-zinc-950 border-t border-white/10">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-center font-black text-2xl mb-12 tracking-[0.3em] text-white">W.O.F.M. DIAGNOSTIC LAB</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass-dark p-8 rounded-3xl space-y-6">
+                    <div class="text-[10px] font-bold text-yellow-400 uppercase tracking-widest">Simulation Input</div>
+                    <div>
+                        <span class="text-[10px] text-zinc-500 uppercase block mb-2 font-bold font-mono">License Value</span>
+                        <input type="text" value="$99.00" disabled class="w-full bg-black border border-zinc-800 p-4 rounded-xl text-yellow-400 font-mono outline-none">
+                    </div>
+                    <div>
+                        <span class="text-[10px] text-zinc-500 uppercase block mb-2 font-bold font-mono">Node Admin Email</span>
+                        <input type="text" value="edwardwatchout4us@gmail.com" disabled class="w-full bg-black border border-zinc-800 p-4 rounded-xl text-zinc-400 font-mono outline-none">
+                    </div>
+                    <button id="master-btn" onclick="window.triggerPayment(event)" disabled class="w-full py-5 bg-yellow-400 text-black font-black uppercase text-xs rounded-xl opacity-30 cursor-not-allowed">Accept Terms to Enable Lab</button>
+                </div>
+                <div id="console-log" class="bg-black border border-zinc-800 p-6 h-72 rounded-3xl font-mono text-[11px] overflow-y-auto leading-relaxed text-zinc-500">
+                    <div class="italic">-- WAITING FOR HANDSHAKE --</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Legal -->
+    <div id="legalModal" class="legal-modal">
+        <div class="max-w-md w-full glass-dark p-10 rounded-[2.5rem] shadow-2xl text-center">
+            <div class="text-2xl text-yellow-400 mb-6 font-black italic uppercase">Node Terms</div>
+            <div class="text-left space-y-4 text-[11px] text-zinc-400 font-mono mb-8 max-h-48 overflow-y-auto pr-2">
+                <p><b class="text-white uppercase">License:</b> One-time $99 activation fee for lifetime merchant node status.</p>
+                <p><b class="text-white uppercase">Protocol:</b> "WATCH OUT FOR ME" uses high-frequency handshakes for transaction validation.</p>
+                <p><b class="text-white uppercase">Contact:</b> edwardwatchout4us@gmail.com for admin support.</p>
+            </div>
+            <div class="flex gap-4">
+                <button onclick="window.toggleLegal(event)" class="flex-1 py-4 rounded-xl border border-zinc-800 text-xs font-bold uppercase text-zinc-500">Decline</button>
+                <button onclick="window.acceptLegal(event)" class="flex-1 bg-yellow-400 text-black py-4 rounded-xl text-xs font-bold uppercase">Accept & Activate</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="py-20 text-center text-zinc-800 font-mono text-[10px] uppercase tracking-[0.5em]">
+        © 2024 WATCH OUT FOR ME // edwardwatchout4us@gmail.com
+    </footer>
+
+    <script>
+        window.accepted = false;
+        window.isProcessing = false;
+
+        window.log = function(msg, color='text-zinc-500') {
+            const el = document.getElementById('console-log');
+            if(!el) return;
+            const time = new Date().toLocaleTimeString([], { hour12: false });
+            el.innerHTML += `<div class="${color} mb-1">[${time}] ${msg}</div>`;
+            el.scrollTop = el.scrollHeight;
+        };
+
+        window.toggleLegal = function(e) {
+            if(e) e.stopPropagation();
+            const modal = document.getElementById('legalModal');
+            if(modal) {
+                const isActive = modal.classList.toggle('active');
+                document.body.classList.toggle('modal-open', isActive);
+            }
+        };
+
+        window.acceptLegal = function(e) {
+            if(e) e.stopPropagation();
+            window.accepted = true;
+            window.toggleLegal();
+            const btn = document.getElementById('master-btn');
+            if(btn) {
+                btn.disabled = false;
+                btn.style.opacity = "1";
+                btn.style.cursor = "pointer";
+                btn.innerText = "Execute Lab Diagnostic";
+            }
+            window.log("EULA Accepted by Client Node.", "text-emerald-500");
+            window.log("Admin: edwardwatchout4us@gmail.com", "text-zinc-400");
+        };
+
+        window.triggerPayment = function(e) {
+            if(e) e.stopPropagation();
+            if(window.isProcessing) return; // Prevent multiple clicks
+            if(!window.accepted) return window.toggleLegal();
+            
+            window.isProcessing = true;
+            const container = document.getElementById('phoneContainer');
+            const home = document.getElementById('screen-home');
+            const proc = document.getElementById('screen-processing');
+            
+            if(container) container.classList.add('scanning');
+            if(home) home.classList.add('hidden');
+            if(proc) proc.classList.remove('hidden');
+            
+            window.log("Initiating WATCH OUT Handshake...", "text-yellow-500");
+
+            setTimeout(() => {
+                window.log("Biometric sig verified.", "text-emerald-500");
+                window.log("Settling $99 license...", "text-yellow-500");
+            }, 1000);
+
+            setTimeout(() => {
+                if(proc) proc.classList.add('hidden');
+                const succ = document.getElementById('screen-success');
+                if(succ) succ.classList.remove('hidden');
+                if(container) container.classList.remove('scanning');
+                document.getElementById('phone-balance').innerText = "$99.00";
+                window.log("Handshake Complete. Node Active.", "text-emerald-500 font-bold");
+                window.isProcessing = false;
+            }, 3000);
+        };
+
+        window.resetApp = function(e) {
+            if(e) e.stopPropagation();
+            const succ = document.getElementById('screen-success');
+            const home = document.getElementById('screen-home');
+            if(succ) succ.classList.add('hidden');
+            if(home) home.classList.remove('hidden');
+            window.log("System reset to idle.", "text-zinc-600");
+        };
+
+        // Safety check for Wix sandbox
+        window.addEventListener('load', () => {
+            console.log("W.O.F.M. System Ready");
+        });
+    </script>
+</body>
+</html>
