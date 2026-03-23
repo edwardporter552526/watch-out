@@ -1,0 +1,390 @@
+import React, { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { 
+  getFirestore, 
+  collection, 
+  doc, 
+  addDoc, 
+  onSnapshot, 
+  updateDoc, 
+  query, 
+  where 
+} from 'firebase/firestore';
+import { 
+  getAuth, 
+  signInAnonymously, 
+  onAuthStateChanged, 
+  signInWithCustomToken 
+} from 'firebase/auth';
+
+// --- CONFIGURATION ---
+const firebaseConfig = JSON.parse(__firebase_config);
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const appId = typeof __app_id !== 'undefined' ? __app_id : 'wofm-guardian-5';
+
+/**
+ * WATCH OUT 4 ME - GOLD MERCHANT ENGINE v5.6
+ * "The Supervisor Edition"
+ * Updated with Service Catalog & Product Descriptions
+ */
+export default function App() {
+  const [user, setUser] = useState(null);
+  const [view, setView] = useState('landing'); 
+  const [customerEmail, setCustomerEmail] = useState('');
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [activeOrder, setActiveOrder] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [booting, setBooting] = useState(true);
+  const [agreedToTerms, setAgreedToTerms] = useState(false);
+
+  // Auth Initialization
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+      } catch (err) { console.error("Auth failed", err); }
+    };
+    initAuth();
+    const unsubscribe = onAuthStateChanged(auth, (u) => {
+      setUser(u);
+      setTimeout(() => setBooting(false), 1500);
+    });
+    return () => unsubscribe();
+  }, []);
+
+  // Customer Order Tracking
+  useEffect(() => {
+    if (!user || !customerEmail || view !== 'success') return;
+    const q = query(
+      collection(db, 'artifacts', appId, 'public', 'data', 'orders'),
+      where('email', '==', customerEmail.toLowerCase())
+    );
+    const unsubscribe = onSnapshot(q, (snapshot) => {
+      const docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      if (docs.length > 0) {
+        setActiveOrder(docs.sort((a, b) => b.timestamp - a.timestamp)[0]);
+      }
+    }, (err) => console.error("Snapshot error", err));
+    return () => unsubscribe();
+  }, [user, customerEmail, view]);
+
+  // Admin Order Monitor
+  useEffect(() => {
+    if (!user || view !== 'admin') return;
+    const ordersRef = collection(db, 'artifacts', appId, 'public', 'data', 'orders');
+    const unsubscribe = onSnapshot(ordersRef, (snapshot) => {
+      const docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+      setPendingOrders(docs.sort((a, b) => b.timestamp - a.timestamp));
+    }, (err) => console.error("Admin monitor error", err));
+    return () => unsubscribe();
+  }, [user, view]);
+
+  const handleSubmitOrder = async () => {
+    if (!customerEmail || !customerEmail.includes('@') || !agreedToTerms) return;
+    setIsProcessing(true);
+    try {
+      await addDoc(collection(db, 'artifacts', appId, 'public', 'data', 'orders'), {
+        email: customerEmail.toLowerCase(),
+        status: 'pending',
+        timestamp: Date.now(),
+        code: '', 
+        userId: user.uid,
+        type: 'Lifetime Supervision Key'
+      });
+      setView('success');
+    } catch (err) { console.error(err); }
+    finally { setIsProcessing(false); }
+  };
+
+  const releaseCode = async (orderId) => {
+    const generatedCode = `W4O-${Math.random().toString(36).toUpperCase().substring(2, 8)}`;
+    try {
+      await updateDoc(doc(db, 'artifacts', appId, 'public', 'data', 'orders', orderId), {
+        status: 'completed',
+        code: generatedCode
+      });
+    } catch (err) { console.error(err); }
+  };
+
+  const goldTextStyle = {
+    background: 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+    WebkitBackgroundClip: 'text',
+    WebkitTextFillColor: 'transparent',
+    display: 'inline-block'
+  };
+
+  const GoldLogo = () => (
+    <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+      <circle cx="50" cy="50" r="48" stroke="url(#goldGrad)" strokeWidth="4" />
+      <path d="M25 35L40 75L50 50L60 75L75 35" stroke="url(#goldGrad)" strokeWidth="8" strokeLinecap="round" strokeLinejoin="round" />
+      <defs>
+        <linearGradient id="goldGrad" x1="0" y1="0" x2="100" y2="100">
+          <stop stopColor="#BF953F" /><stop offset="0.5" stopColor="#B38728" /><stop offset="1" stopColor="#AA771C" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+
+  if (booting) return (
+    <div className="fixed inset-0 bg-black flex flex-col items-center justify-center p-8 z-[9999]">
+       <GoldLogo />
+       <p className="mt-8 text-[9px] font-mono tracking-[0.5em] text-yellow-600 uppercase animate-pulse">W4O // AUTHORIZING SUPERVISOR NODE</p>
+    </div>
+  );
+
+  return (
+    <div className="min-h-screen bg-black text-zinc-400 font-sans selection:bg-yellow-500/20">
+      
+      {/* NAVIGATION */}
+      <nav className="fixed top-0 w-full p-6 flex justify-between items-center z-50 bg-black/80 backdrop-blur-md border-b border-white/5">
+        <div className="flex items-center gap-4 cursor-pointer" onClick={() => setView('landing')}>
+          <GoldLogo />
+          <div className="flex flex-col">
+            <span className="text-sm font-black tracking-widest text-white uppercase italic leading-none">Watch Out 4 Me</span>
+            <span className="text-[8px] font-mono text-yellow-600 uppercase tracking-widest italic">Supervisor Access</span>
+          </div>
+        </div>
+        <div className="flex items-center gap-6">
+            <button onClick={() => setView('catalog')} className="text-[10px] font-bold uppercase tracking-widest text-zinc-400 hover:text-white transition-colors">Catalog</button>
+            <button onClick={() => setView(view === 'admin' ? 'landing' : 'admin')} className="text-[9px] uppercase tracking-widest text-yellow-600 border border-yellow-900/30 px-4 py-2 rounded-full hover:bg-yellow-600/10 transition-all">
+            {view === 'admin' ? 'Exit Console' : 'Merchant Access'}
+            </button>
+        </div>
+      </nav>
+
+      <div className="max-w-6xl mx-auto px-6 pt-32 pb-20">
+        
+        {/* LANDING VIEW */}
+        {view === 'landing' && (
+          <div className="space-y-40">
+            <div className="grid lg:grid-cols-2 gap-20 items-center">
+              <div className="space-y-10">
+                <div className="inline-block px-4 py-1.5 border border-yellow-600/40 rounded-full text-[10px] font-mono text-yellow-500 uppercase tracking-[0.2em] bg-yellow-900/10">Authorized Protocol Active</div>
+                <h1 className="text-8xl md:text-[10rem] font-black italic tracking-tighter uppercase leading-[0.75] text-white">
+                  WATCH<br />OUT<br /><span style={goldTextStyle}>4 ME.</span>
+                </h1>
+                <p className="text-2xl text-zinc-500 italic max-w-md border-l-2 border-yellow-600 pl-8 leading-relaxed font-light">
+                  Join a global, peer-supervised network. Professional AI infrastructure without the subscription fatigue.
+                </p>
+                <div className="flex flex-wrap gap-5 pt-4">
+                  <button onClick={() => setView('checkout')} className="px-12 py-6 bg-gradient-to-br from-yellow-400 to-yellow-700 text-black font-black uppercase text-xs tracking-widest rounded-3xl hover:scale-105 transition-all shadow-2xl shadow-yellow-500/20">
+                    Claim Supervision Key — $99
+                  </button>
+                  <button onClick={() => setView('catalog')} className="px-12 py-6 border border-white/10 text-white font-bold uppercase text-[10px] tracking-widest rounded-3xl hover:bg-white/5 transition-colors">
+                    The Catalog
+                  </button>
+                </div>
+              </div>
+              
+              <div className="grid grid-cols-2 gap-6 relative">
+                {[
+                  { title: "No Subscription", desc: "Pay once. Own your access forever.", icon: "💎" },
+                  { title: "Clean Node", desc: "Private queries. Zero scraping.", icon: "🔒" },
+                  { title: "Secure Images", desc: "Integrated visual engine.", icon: "🎨" },
+                  { title: "Safety Net", desc: "Peer-supervised intelligence.", icon: "🛡️" }
+                ].map((f, i) => (
+                  <div key={i} className="relative p-8 bg-zinc-950/50 backdrop-blur-sm border border-white/10 rounded-[2.5rem] space-y-4 hover:border-yellow-500/40 transition-all group overflow-hidden shadow-xl">
+                    <div className="text-3xl">{f.icon}</div>
+                    <div className="text-sm font-black text-white uppercase tracking-tighter group-hover:text-yellow-500">{f.title}</div>
+                    <div className="text-[11px] text-zinc-500 leading-snug font-mono uppercase tracking-tighter">{f.desc}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="py-32 bg-zinc-950/80 rounded-[5rem] border border-yellow-900/20 px-12 text-center relative overflow-hidden group shadow-2xl">
+                <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-yellow-500/5 via-transparent to-transparent"></div>
+                <h2 className="text-6xl font-black italic uppercase text-white mb-10 tracking-tighter">The <span style={goldTextStyle}>"Watch Out"</span> Promise</h2>
+                <p className="text-3xl text-zinc-400 max-w-4xl mx-auto italic font-light leading-relaxed">
+                  "We don't just provide a tool; <span style={goldTextStyle} className="font-bold">we provide a community</span>. When you join the Watch, you aren't a 'user'—you are a <span className="text-white font-bold underline decoration-yellow-600 underline-offset-8">Supervisor</span>. We watch out for the tech, so the tech can watch out for you."
+                </p>
+                <div className="mt-12 flex justify-center gap-12 opacity-40">
+                    <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-yellow-600">Secure Network</div>
+                    <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-yellow-600">Peer Supervision</div>
+                    <div className="text-[10px] font-mono uppercase tracking-[0.3em] text-yellow-600">Clean Node</div>
+                </div>
+            </div>
+          </div>
+        )}
+
+        {/* CATALOG VIEW */}
+        {view === 'catalog' && (
+            <div className="space-y-24 animate-in fade-in duration-500">
+                <div className="text-center space-y-4">
+                    <h2 className="text-7xl font-black italic uppercase text-white tracking-tighter leading-none">The <span style={goldTextStyle}>Supervisor</span> Catalog</h2>
+                    <p className="text-yellow-600/60 font-mono text-[10px] uppercase tracking-[0.5em] font-bold">Secure Artificial Intelligence Infrastructure</p>
+                </div>
+
+                <div className="grid gap-10">
+                    {/* HERO PRODUCT */}
+                    <div className="bg-zinc-950 border-2 border-yellow-600/30 rounded-[4rem] p-16 overflow-hidden relative shadow-2xl">
+                        <div className="absolute top-0 right-0 px-10 py-4 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-black uppercase text-[11px] tracking-widest rounded-bl-[2rem]">Hero Product</div>
+                        <div className="flex flex-col md:flex-row gap-16 items-center">
+                            <div className="w-56 h-56 bg-zinc-900 rounded-full flex items-center justify-center border-4 border-yellow-900/20 relative shadow-inner">
+                                <GoldLogo />
+                            </div>
+                            <div className="flex-grow space-y-6 text-center md:text-left">
+                                <div className="text-yellow-500 font-mono text-xs uppercase tracking-[0.3em] font-bold">LIFETIME SUPERVISION KEY // $99.00</div>
+                                <h3 className="text-5xl font-black italic uppercase text-white tracking-tighter leading-tight">Secure AI Mastery</h3>
+                                <p className="text-zinc-500 italic text-lg max-w-2xl leading-relaxed">
+                                    This isn't just a chat bot; it's a lifetime membership into a global, peer-supervised network. Access high-performance AI without the burden of monthly subscriptions.
+                                </p>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-[12px] font-mono text-zinc-400 uppercase pt-6">
+                                    <div className="flex items-center gap-3 border-l border-yellow-600/30 pl-4"><span className="text-yellow-500 text-lg">✦</span> Unlimited AI Dialogue</div>
+                                    <div className="flex items-center gap-3 border-l border-yellow-600/30 pl-4"><span className="text-yellow-500 text-lg">✦</span> Zero Subscription Fatigue</div>
+                                    <div className="flex items-center gap-3 border-l border-yellow-600/30 pl-4"><span className="text-yellow-500 text-lg">✦</span> The Safety Protocol</div>
+                                    <div className="flex items-center gap-3 border-l border-yellow-600/30 pl-4"><span className="text-yellow-500 text-lg">✦</span> Private Image Gen</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* SERVICES */}
+                    <div className="grid md:grid-cols-3 gap-8">
+                        {[
+                            { 
+                              id: "SERVICE 01", 
+                              title: "Peer-Supervised Intelligence", 
+                              desc: "Traditional AI is unmonitored. We utilize a community-driven oversight model. Our service ensures AI models are filtered through a human-centric safety net.",
+                              benefit: "Reduces 'hallucinations' and ensures ethics.", 
+                              value: "Peace of mind for families & pros." 
+                            },
+                            { 
+                              id: "SERVICE 02", 
+                              title: "Secure Creative Engine", 
+                              desc: "Generate stunning, high-resolution visuals using advanced image models fully integrated into your member dashboard.",
+                              benefit: "No separate, expensive subscriptions.", 
+                              value: "Unlimited assets for social & web." 
+                            },
+                            { 
+                              id: "SERVICE 03", 
+                              title: "Data Privacy & Encrypted Nodes", 
+                              desc: "Most AI companies 'scrape' your data to train models. We provide a 'Clean Node' experience through an encrypted tunnel.",
+                              benefit: "Data is never used for public training.", 
+                              value: "Complete privacy for business ideas." 
+                            }
+                        ].map((s, i) => (
+                            <div key={i} className="bg-zinc-950 border border-white/5 rounded-[3rem] p-10 space-y-8 flex flex-col hover:border-yellow-600/20 transition-all shadow-xl group">
+                                <div>
+                                    <div className="text-yellow-600 font-mono text-[10px] uppercase tracking-[0.4em] mb-2 font-bold">{s.id}</div>
+                                    <h4 className="text-2xl font-black italic uppercase text-white tracking-tighter leading-none mb-6 group-hover:text-yellow-500 transition-colors">{s.title}</h4>
+                                    <p className="text-[13px] text-zinc-500 italic leading-relaxed font-light">{s.desc}</p>
+                                </div>
+                                <div className="space-y-4 mt-auto border-t border-white/5 pt-8">
+                                    <div className="text-[11px] text-zinc-400 font-mono">
+                                        <span className="text-yellow-600 font-bold uppercase tracking-widest block mb-1">Benefit:</span> {s.benefit}
+                                    </div>
+                                    <div className="text-[11px] text-zinc-400 font-mono">
+                                        <span className="text-yellow-600 font-bold uppercase tracking-widest block mb-1">Value:</span> {s.value}
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+
+                <div className="flex justify-center pt-10">
+                    <button onClick={() => setView('checkout')} className="px-16 py-8 bg-white text-black font-black uppercase text-sm tracking-[0.3em] rounded-full hover:bg-yellow-500 transition-all shadow-2xl">Claim Supervision Access</button>
+                </div>
+            </div>
+        )}
+
+        {/* CHECKOUT VIEW */}
+        {view === 'checkout' && (
+          <div className="max-w-xl mx-auto bg-zinc-950 border border-yellow-600/20 rounded-[4rem] p-16 space-y-12 shadow-2xl relative">
+            <div className="absolute -top-10 left-1/2 -translate-x-1/2"><GoldLogo /></div>
+            <div className="text-center space-y-2">
+                <h2 className="text-4xl font-black text-white italic uppercase tracking-tighter">Supervisor Authorization</h2>
+                <p className="text-[10px] font-mono text-yellow-600 uppercase tracking-[0.5em]">Global Peer-Supervised Network</p>
+            </div>
+            
+            <div className="p-8 bg-zinc-900 border border-yellow-600/20 rounded-[2rem] text-white font-mono text-center space-y-4">
+              <div className="text-[10px] uppercase tracking-widest text-zinc-500 italic">Zelle Recipient</div>
+              <span style={goldTextStyle} className="text-2xl font-black select-all tracking-tight">EDWARDWATCHOUT4US@GMAIL.COM</span>
+              <div className="text-xs text-yellow-600 font-bold uppercase tracking-[0.2em] pt-2 italic">Amount: $99.00 USD (ONE-TIME)</div>
+            </div>
+
+            <div className="space-y-6">
+                <input 
+                    type="email" placeholder="Verification Email"
+                    className="w-full bg-zinc-900 border border-white/10 p-6 rounded-3xl text-white outline-none text-center text-sm font-bold tracking-widest focus:border-yellow-600 transition-all"
+                    value={customerEmail} onChange={(e) => setCustomerEmail(e.target.value)}
+                />
+                <div className="flex items-start gap-5 p-6 bg-zinc-900/30 rounded-3xl border border-white/5">
+                    <input type="checkbox" checked={agreedToTerms} onChange={(e) => setAgreedToTerms(e.target.checked)} className="mt-1 w-5 h-5 accent-yellow-500" />
+                    <label className="text-[10px] text-zinc-500 font-bold uppercase tracking-widest leading-relaxed">I consent to the 'Watch Out' Promise & Software License Terms.</label>
+                </div>
+            </div>
+            <button onClick={handleSubmitOrder} disabled={!customerEmail || !agreedToTerms || isProcessing} className="w-full py-8 bg-gradient-to-r from-yellow-500 to-yellow-700 text-black font-black uppercase text-xs tracking-[0.4em] rounded-[2rem] hover:scale-[1.02] transition-all">
+              {isProcessing ? 'SYNCHRONIZING NODE...' : 'ACTIVATE SECURE NODE'}
+            </button>
+          </div>
+        )}
+
+        {/* SUCCESS VIEW */}
+        {view === 'success' && (
+          <div className="max-w-xl mx-auto text-center space-y-12 py-20">
+            <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter">Access Authorized</h2>
+            <div className="p-12 bg-zinc-950 border-2 border-yellow-600/20 rounded-[4rem] space-y-6 shadow-2xl">
+                <p className="text-[11px] text-zinc-500 uppercase font-mono tracking-[0.3em] leading-relaxed">
+                    Account: <span className="text-white">{customerEmail}</span><br/>
+                    Status: Validating Node Signature
+                </p>
+                <div style={goldTextStyle} className="text-5xl font-mono font-black tracking-[0.2em] py-6 animate-pulse">
+                    {activeOrder?.status === 'completed' ? activeOrder.code : 'WAITING'}
+                </div>
+                <p className="text-[10px] text-zinc-500 italic uppercase tracking-widest font-bold">Your Supervisor Access Key will manifest here upon Zelle verification (12-24h).</p>
+            </div>
+          </div>
+        )}
+
+        {/* ADMIN VIEW */}
+        {view === 'admin' && (
+          <div className="space-y-16">
+            <div className="flex justify-between items-end border-b border-yellow-900/20 pb-12">
+                <div className="space-y-2">
+                    <h2 className="text-6xl font-black text-white italic uppercase tracking-tighter">Admin Console</h2>
+                    <p className="text-[10px] font-mono text-yellow-600 uppercase tracking-[0.5em]">Node Release & Verification</p>
+                </div>
+            </div>
+            <div className="grid gap-6">
+              {pendingOrders.map(order => (
+                <div key={order.id} className="bg-zinc-950 border border-white/5 p-10 rounded-[3rem] flex flex-col md:flex-row justify-between items-center group hover:border-yellow-600/30 transition-all">
+                  <div className="space-y-2 mb-6 md:mb-0 text-center md:text-left">
+                    <div className="text-white font-black text-2xl tracking-tight select-all">{order.email}</div>
+                    <div className="text-[11px] text-zinc-600 uppercase font-mono tracking-[0.2em]">
+                        {new Date(order.timestamp).toLocaleString()}
+                    </div>
+                  </div>
+                  <button 
+                    onClick={() => releaseCode(order.id)}
+                    disabled={order.status === 'completed'}
+                    className={`px-12 py-5 text-[11px] font-black uppercase tracking-[0.3em] rounded-2xl transition-all shadow-lg ${order.status === 'completed' ? 'bg-zinc-900 text-zinc-700' : 'bg-gradient-to-r from-yellow-500 to-yellow-700 text-black'}`}
+                  >
+                    {order.status === 'completed' ? `NODE ID: ${order.code}` : 'RELEASE KEY'}
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+      </div>
+
+      <footer className="py-32 text-center border-t border-white/5 mt-40">
+        <div className="flex justify-center mb-10"><GoldLogo /></div>
+        <div className="text-[11px] uppercase tracking-[1.5em] text-yellow-600 font-bold mb-4 italic">Watch Out 4 Us Network</div>
+        <div className="text-[10px] text-zinc-600 font-mono tracking-widest uppercase italic font-bold leading-relaxed">
+            "We watch out for the tech, so the tech can watch out for you."<br/>
+            © 2026 // Lifetime Supervision Infrastructure
+        </div>
+      </footer>
+    </div>
+  );
+}
