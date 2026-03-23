@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base target="_self">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;700&family=JetBrains+Mono:wght@400;700&display=swap');
+
+        :root {
+            --silver: #C0C0C0;
+            --deep-black: #050505;
+            --accent-yellow: #facc15;
+        }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--deep-black); 
+            color: var(--silver);
+            margin: 0; scroll-behavior: smooth;
+        }
+
+        .font-tech { font-family: 'Orbitron', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+
+        .glass-panel {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(192, 192, 192, 0.1);
+        }
+
+        /* Legal Modal Styling */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.9);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+
+        .cyber-btn {
+            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0% 30%);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .legal-text {
+            font-size: 0.75rem;
+            line-height: 1.6;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="fixed top-0 w-full z-50 bg-black/90 border-b border-white/5 py-4 px-10 flex justify-between items-center">
+        <div class="font-tech text-white italic">WATCH OUT FOR ME</div>
+        <div class="hidden md:flex items-center gap-6">
+            <span class="text-[9px] font-mono text-emerald-500 uppercase tracking-widest">● SSL Encrypted</span>
+            <span class="text-[9px] font-mono text-emerald-500 uppercase tracking-widest">● Verified Merchant</span>
+        </div>
+    </nav>
+
+    <main class="pt-32 pb-20 max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div>
+                <h1 class="text-6xl font-tech font-black text-white italic mb-6 uppercase">Legal <br>Security.</h1>
+                <p class="text-zinc-400 mb-8">Deploying the Watch Out For Me app requires a secure handshake. Our network is built on transparency, privacy, and clear licensing terms.</p>
+                
+                <div class="space-y-4 mb-10">
+                    <div class="flex gap-4 items-center">
+                        <div class="w-2 h-2 bg-yellow-400"></div>
+                        <span class="text-xs uppercase font-bold text-white tracking-widest">No-Log Data Policy</span>
+                    </div>
+                    <div class="flex gap-4 items-center">
+                        <div class="w-2 h-2 bg-yellow-400"></div>
+                        <span class="text-xs uppercase font-bold text-white tracking-widest">Encrypted Video Uplink</span>
+                    </div>
+                    <div class="flex gap-4 items-center">
+                        <div class="w-2 h-2 bg-yellow-400"></div>
+                        <span class="text-xs uppercase font-bold text-white tracking-widest">One-Time Perpetual License</span>
+                    </div>
+                </div>
+
+                <button onclick="openLegal()" class="cyber-btn bg-white text-black px-8 py-4 font-black text-xs uppercase">Review Full License</button>
+            </div>
+
+            <div class="glass-panel p-10 rounded-3xl border-zinc-800 text-center">
+                <h2 class="font-tech text-white text-2xl mb-4 italic uppercase">Network Entry</h2>
+                <p class="text-[10px] text-zinc-500 font-mono mb-8 italic">BY CLICKING BELOW YOU AGREE TO THE EULA</p>
+                
+                <div class="text-5xl font-tech font-black text-white mb-10">$99.00</div>
+                
+                <button onclick="window.top.location.href='https://www.watchoutfor.me/thank-you'" class="cyber-btn bg-yellow-400 text-black w-full py-6 font-black uppercase text-sm">
+                    Initialize Purchase
+                </button>
+                
+                <div class="mt-6 flex justify-center gap-4 opacity-30">
+                    <span class="text-[8px] font-mono">VISA</span>
+                    <span class="text-[8px] font-mono">MASTERCARD</span>
+                    <span class="text-[8px] font-mono">APPLE PAY</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-zinc-950 border-t border-white/5 py-20 px-10">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12">
+            <div class="col-span-1 md:col-span-2">
+                <div class="font-tech text-white mb-6">W.O.F.M. NETWORK</div>
+                <p class="text-xs text-zinc-500 max-w-sm leading-relaxed">Watch Out For Me is a proprietary security application. By purchasing a $99.00 lifetime license, you are granted a non-transferable right to access the decentralized protection network.</p>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold text-white uppercase tracking-[0.3em] mb-6">Compliance</h4>
+                <ul class="text-[10px] text-zinc-500 space-y-3 font-mono">
+                    <li><a href="javascript:void(0)" onclick="openLegal()" class="hover:text-white">Terms of Service</a></li>
+                    <li><a href="javascript:void(0)" onclick="openLegal()" class="hover:text-white">Privacy Policy</a></li>
+                    <li><a href="javascript:void(0)" onclick="openLegal()" class="hover:text-white">Refund Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] font-bold text-white uppercase tracking-[0.3em] mb-6">Contact</h4>
+                <p class="text-[10px] text-zinc-500 font-mono">edwardwatchout4us@gmail.com</p>
+                <p class="text-[10px] text-zinc-500 font-mono mt-4">24/7 Monitoring Online</p>
+            </div>
+        </div>
+        <div class="text-center mt-20 pt-10 border-t border-white/5">
+            <p class="text-[9px] text-zinc-800 font-mono uppercase tracking-[1em]">© 2026 WATCH OUT FOR ME // ALL RIGHTS RESERVED</p>
+        </div>
+    </footer>
+
+    <div id="legalModal" class="modal-overlay">
+        <div class="glass-panel max-w-2xl w-full p-10 rounded-2xl relative">
+            <button onclick="closeLegal()" class="absolute top-6 right-6 text-zinc-500 hover:text-white">✕</button>
+            <h2 class="font-tech text-white text-2xl mb-6">END USER LICENSE AGREEMENT</h2>
+            
+            <div class="h-80 overflow-y-auto pr-4 legal-text space-y-6 font-mono text-[10px] border-b border-zinc-800 mb-8">
+                <p><b class="text-white uppercase">1. THE SERVICE:</b> W.O.F.M. provides a digital communication and video streaming platform. We do not provide physical security services or emergency response personnel.</p>
+                <p><b class="text-white uppercase">2. ONE-TIME FEE:</b> The purchase price of $99.00 grants a lifetime license for the current version of the software. There are no recurring monthly fees.</p>
+                <p><b class="text-white uppercase">3. PRIVACY & DATA:</b> We utilize end-to-end encryption. You own your video data. We do not sell your personal information to third parties.</p>
+                <p><b class="text-white uppercase">4. REFUND POLICY:</b> Due to the digital nature of the software license, all sales are final upon node activation. Technical support is available 24/7 via the provided admin email.</p>
+                <p><b class="text-white uppercase">5. LIABILITY:</b> Users are responsible for following local laws while recording video or audio. W.O.F.M. is not liable for data loss due to network interruptions.</p>
+            </div>
+
+            <button onclick="closeLegal()" class="w-full py-4 bg-white text-black font-black uppercase text-xs">I Acknowledge Terms</button>
+        </div>
+    </div>
+
+    <script>
+        function openLegal() { document.getElementById('legalModal').classList.add('active'); }
+        function closeLegal() { document.getElementById('legalModal').classList.remove('active'); }
+    </script>
+
+</body>
+</html>
