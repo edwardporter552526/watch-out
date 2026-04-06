@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Out For Me | Personal AI Security</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --alert-red: #8B0000;
+            --deep-black: #050505;
+            --panel-bg: #111111;
+            --text-main: #FFFFFF;
+        }
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 50px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .logo-gold {
+            color: var(--gold);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        /* --- Emergency Features Grid --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: var(--panel-bg);
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--gold);
+        }
+
+        .feature-card h3 { color: var(--gold); margin-top: 0; }
+
+        /* --- The Blackout Mode Section --- */
+        .blackout-section {
+            background: #000;
+            border: 1px dashed var(--gold);
+            padding: 30px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        /* --- Live Tactical Buttons --- */
+        .tactical-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn-tactical {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 15px 25px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-tactical:hover { background: var(--gold); color: black; }
+
+        .btn-sos { border-color: var(--alert-red); color: var(--alert-red); }
+        .btn-sos:hover { background: var(--alert-red); color: white; }
+
+        /* --- Layman Payment Box --- */
+        .pricing-box {
+            background: #1a1a1a;
+            border: 1px solid var(--gold);
+            padding: 40px;
+            text-align: center;
+            margin: 50px 0;
+        }
+
+        .legal-box { font-size: 0.8rem; color: #777; margin-top: 60px; border-top: 1px solid #222; padding-top: 20px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 class="logo-gold">WATCH OUT FOR ME</h1>
+        <p>Your Personal AI Bodyguard & Emergency Response System</p>
+    </header>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>📍 Real-Time GPS & Family Sync</h3>
+            <p>Your inner circle always knows where you are. In any incident, your precise coordinates are instantly broadcast to your designated family members.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎥 Live Audio/Video Recording</h3>
+            <p>The AI automatically captures and uploads encrypted audio and video footage to our "Clean Node" servers, ensuring evidence is preserved even if the phone is lost.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🚑 Emergency Dispatch</h3>
+            <p>Our system doesn't just watch—it acts. If a threat is detected, the AI reaches out to the Police, Fire Department, or Ambulance services based on your situation.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📉 Smart Fall Detection</h3>
+            <p>Perfect for seniors. The AI uses your phone's sensors to detect a sudden fall and will automatically call for help if you don't respond within seconds.</p>
+        </div>
+    </div>
+
+    <div class="blackout-section">
+        <h3 style="color: var(--gold);">🔳 STEALTH "BLACKOUT" MODE</h3>
+        <p>In high-risk situations like a kidnapping or confrontation, one tap turns your screen completely blank. To an outsider, the phone looks off—but internally, **Watch Out For Me** is recording everything, tracking GPS, and alerting the authorities in total silence.</p>
+    </div>
+
+    <div class="tactical-bar">
+        <button class="btn-tactical btn-sos">⚠️ ACTIVATE SOS</button>
+        <button class="btn-tactical">🔄 SYNC FAMILY GEOFENCE</button>
+        <button class="btn-tactical">🔳 ENTER STEALTH MODE</button>
+    </div>
+
+    <div class="pricing-box">
+        <h2 style="color: var(--gold);">LIFETIME PROTECTION KEY: $99</h2>
+        <p>No monthly fees. No subscriptions. One payment for a lifetime of security.</p>
+        <p><strong>HOW TO SECURE YOUR ACCESS:</strong></p>
+        <p>1. Zelle <strong>$99.00</strong> to <strong>[YOUR ZELLE CONTACT]</strong><br>
+           2. We verify the transfer and send your <strong>Lifetime Activation Code</strong>.<br>
+           3. Enter the code in the app to activate your personal Guardian.</p>
+        <a href="mailto:your-email@example.com" class="btn-tactical">Request Activation Code</a>
+    </div>
+
+    <footer class="legal-box">
+        <h4>⚖️ LIABILITY & SAFETY PROTOCOL</h4>
+        <p><strong>Emergency Services:</strong> Watch Out For Me is a supplement to, not a replacement for, 911. Always contact emergency services directly if possible. Our AI alerts are based on sensor data and network availability.</p>
+        <p><strong>Recording & Privacy:</strong> Users are responsible for complying with local laws regarding audio/video recording. Footage is encrypted and accessible only by the account holder.</p>
+        <p><strong>No Guarantee:</strong> While designed to provide maximum security, no app can prevent all accidents or crimes. The developer is not liable for outcomes during emergency situations.</p>
+        <p><strong>Final Sale:</strong> Lifetime Key purchases via Zelle are digital assets and are non-refundable once the activation code is issued.</p>
+    </footer>
+</div>
+
+</body>
+</html>
