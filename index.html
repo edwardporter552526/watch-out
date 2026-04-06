@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Watch Out For Me | Personal AI Security</title>
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --alert-red: #8B0000;
+            --deep-black: #050505;
+            --panel-bg: #111111;
+            --text-main: #FFFFFF;
+            --text-dim: #A0A0A0;
+        }
+
+        body {
+            background-color: var(--deep-black);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, sans-serif;
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
+
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 60px 0;
+            border-bottom: 2px solid var(--gold);
+        }
+
+        .logo-gold {
+            color: var(--gold);
+            font-size: 2.8rem;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin: 0;
+        }
+
+        /* --- Emergency Features Grid --- */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: var(--panel-bg);
+            border: 1px solid #222;
+            padding: 25px;
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 4px; height: 100%;
+            background: var(--gold);
+        }
+
+        .feature-card h3 { color: var(--gold); margin-top: 0; font-size: 1.1rem; }
+
+        /* --- The Blackout Mode Section --- */
+        .blackout-section {
+            background: #000;
+            border: 1px dashed var(--gold);
+            padding: 40px;
+            margin: 40px 0;
+            text-align: center;
+        }
+
+        .blackout-title { color: var(--gold); font-weight: bold; letter-spacing: 2px; }
+
+        /* --- Live Tactical Buttons --- */
+        .tactical-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .btn-tactical {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 15px 30px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-tactical:hover { background: var(--gold); color: black; }
+
+        .btn-sos { border-color: var(--alert-red); color: var(--alert-red); }
+        .btn-sos:hover { background: var(--alert-red); color: white; }
+
+        /* --- Layman Payment Box --- */
+        .pricing-box {
+            background: #1a1a1a;
+            border: 2px solid var(--gold);
+            padding: 50px;
+            text-align: center;
+            margin: 50px 0;
+            border-radius: 8px;
+        }
+
+        .zelle-highlight {
+            color: #FFFFFF;
+            background: #6D1ED4; /* Zelle Purple */
+            padding: 5px 15px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 10px 0;
+        }
+
+        .legal-box { font-size: 0.8rem; color: #777; margin-top: 80px; border-top: 1px solid #222; padding-top: 20px; text-align: justify; }
+        
+        ul { padding-left: 20px; }
+        li { margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1 class="logo-gold">WATCH OUT FOR ME</h1>
+        <p>Elite AI Security • Real-Time Protection • No Subscriptions</p>
+    </header>
+
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>📍 GPS & Family Tracking</h3>
+            <p>Instantly sync your location with trusted family members. They see what you see, where you are, and your current safety status at all times.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🎥 Secure Audio/Video Feed</h3>
+            <p>The AI records environmental audio and video directly to an encrypted "Clean Node," ensuring footage is safe even if your device is damaged or stolen.</p>
+        </div>
+        <div class="feature-card">
+            <h3>🚑 Emergency Dispatch</h3>
+            <p>The system is hardwired to reach out to Police, Fire, or Medical authorities the moment a critical threat or medical emergency is identified.</p>
+        </div>
+        <div class="feature-card">
+            <h3>📉 Fall & Impact Detection</h3>
+            <p>Using advanced motion sensors, the app detects falls or sudden impacts. If you don't respond, the "Guardian" protocol automatically calls for help.</p>
+        </div>
+    </div>
+
+    <div class="blackout-section">
+        <h2 class="blackout-title">🔳 STEALTH "BLACKOUT" MODE</h2>
+        <p>Designed for extreme high-risk situations like kidnappings. When activated, the screen goes completely dark, making the phone appear "Off." <strong>In reality, the AI is recording audio, tracking GPS coordinates, and alerting authorities in total silence.</strong></p>
+    </div>
+
+    <div class="tactical-bar">
+        <div class="btn-tactical btn-sos">⚠️ EMERGENCY SOS</div>
+        <div class="btn-tactical">🔳 STEALTH MODE ACTIVE</div>
+        <div class="btn-tactical">🛡️ GUARDIAN SYNC</div>
+    </div>
+
+    <section class="pricing-box">
+        <h2 style="color: var(--gold); margin-bottom: 5px;">LIFETIME SUPERVISION KEY</h2>
+        <div style="font-size: 3rem; font-weight: bold; margin-bottom: 20px;">$99.00</div>
+        <p>One-time payment. Permanent Security. No monthly fees.</p>
+        
+        <hr style="border: 0; border-top: 1px solid #333; margin: 30px 0;">
+        
+        <h3>How to Secure Your Key:</h3>
+        <p>1. Open your banking app and select <strong>Zelle</strong>.</p>
+        <p>2. Send <strong>$99.00</strong> to the following official account:</p>
+        <div class="zelle-highlight">EDWARDPORTER2526@GMAIL.COM</div>
+        <p>3. Once sent, click the button below to notify us. We will verify the transfer and send your <strong>Activation Code</strong> immediately.</p>
+        
+        <br>
+        <a href="mailto:EDWARDPORTER2526@GMAIL.COM?subject=Watch%20Out%20For%20Me%20Activation%20Code&body=I%20have%20sent%20the%20$99%20Zelle%20payment.%20Please%20verify%20and%20send%20my%20Lifetime%20Access%20Key." class="btn-tactical">I Sent My Zelle Payment</a>
+    </section>
+
+    <footer class="legal-box">
+        <h4 style="color: var(--gold);">⚖️ LIABILITY & SAFETY PROTOCOL</h4>
+        <p>By using Watch Out For Me, you acknowledge and agree to the following:</p>
+        <ul>
+            <li><strong>Supplement to Emergency Services:</strong> This app is a secondary security tool. Always dial 911 or local emergency services directly when possible. We are not responsible for network delays or device failures.</li>
+            <li><strong>Recording Compliance:</strong> You are responsible for following local laws regarding the recording of audio and video. Footage is private and encrypted for the user's protection.</li>
+            <li><strong>No Guarantee of Outcome:</strong> While designed to provide elite-level tracking and detection, no software can guarantee the prevention of all accidents or criminal acts. The developer is not liable for outcomes in emergency situations.</li>
+            <li><strong>Final Sale:</strong> Digital Lifetime Keys are non-refundable once the activation code has been issued via email.</li>
+        </ul>
+        <p style="text-align: center; margin-top: 30px;">&copy; 2026 Watch Out For Me | Secure Personal AI Security</p>
+    </footer>
+</div>
+
+</body>
+</html>
